@@ -6,3 +6,7 @@ desktop.ini
 # Code Editor configurations
 .vscode/
 .idea/
+
+# Product Requirement Documents
+PRD-header-section.md
+PRD-negi-tax-consultant.md

@@ -99,12 +99,15 @@ select:focus-visible {
 /* ==========================================================================
    Header Component Styles
    ========================================================================== */
-header {
+#header-placeholder {
   position: sticky;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
+}
+
+header {
   background-color: rgba(251, 249, 244, 0.92); /* var(--color-bg) at 92% */
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -718,5 +721,72 @@ header.scrolled {
     scroll-behavior: auto !important;
     transition-delay: 0s !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   Back to Top Button Styling
+   ========================================================================== */
+.back-to-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--color-ink);
+  color: var(--color-bg);
+  border: 1px solid rgba(228, 223, 211, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.8) translateY(8px);
+  transition: opacity 0.3s ease, 
+              visibility 0.3s ease, 
+              transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.2s ease,
+              color 0.2s ease;
+  z-index: 999;
+  box-shadow: 0 4px 12px rgba(44, 54, 57, 0.15);
+}
+
+.back-to-top svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+  transition: transform var(--transition-speed) ease;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1) translateY(0);
+}
+
+.back-to-top:hover {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 6px 16px rgba(184, 92, 56, 0.25);
+}
+
+.back-to-top:hover svg {
+  transform: translateY(-2px);
+}
+
+.back-to-top:active {
+  transform: scale(0.95) translateY(0);
+}
+
+/* Adjust position for mobile viewports */
+@media (max-width: 600px) {
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
   }
 }

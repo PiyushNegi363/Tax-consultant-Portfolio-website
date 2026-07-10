@@ -64,4 +64,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const footerPlaceholder = document.getElementById("footer-placeholder");
     if (footerPlaceholder) observeElements(footerPlaceholder);
   });
+  // ==========================================================================
+  // Back to Top Button
+  // ==========================================================================
+  const backToTopBtn = document.createElement("button");
+  backToTopBtn.className = "back-to-top";
+  backToTopBtn.setAttribute("aria-label", "Back to top");
+  backToTopBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+    </svg>
+  `;
+  document.body.appendChild(backToTopBtn);
+
+  // Monitor scroll height to show/hide the button
+  window.addEventListener("scroll", () => {
+    if (window.pageYOffset > 300) {
+      backToTopBtn.classList.add("visible");
+    } else {
+      backToTopBtn.classList.remove("visible");
+    }
+  }, { passive: true });
+
+  // Scroll to top smoothly on click, respecting prefers-reduced-motion
+  backToTopBtn.addEventListener("click", () => {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({
+      top: 0,
+      behavior: prefersReduced ? "auto" : "smooth"
+    });
+  });
 });

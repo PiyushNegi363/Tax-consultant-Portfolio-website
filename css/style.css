@@ -598,6 +598,16 @@ header.scrolled {
   display: block;
 }
 
+.footer-map-link {
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--transition-speed) ease;
+}
+
+.footer-map-link:hover {
+  color: var(--color-accent);
+}
+
 .footer-contact-info {
   display: flex;
   flex-direction: column;

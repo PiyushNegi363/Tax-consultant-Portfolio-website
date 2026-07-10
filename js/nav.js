@@ -27,17 +27,23 @@ function initNavigation() {
   }
 
   // 2. Active Link Highlighting
-  // Get filename from pathname (e.g. "/about.html" -> "about.html")
-  let currentPath = window.location.pathname.split("/").pop();
-  
-  // Normalize empty or root path to index.html
-  if (currentPath === "" || currentPath === "/") {
-    currentPath = "index.html";
-  }
+  // Normalizes a URL path to handle index.html, subfolders, and trailing slashes
+  const normalizePath = (urlStr) => {
+    try {
+      const url = new URL(urlStr, window.location.href);
+      return url.pathname
+        .replace(/\/index\.html$/, '/') // treat index.html as root /
+        .replace(/\/$/, '');            // strip trailing slash for consistent matching
+    } catch (e) {
+      return '';
+    }
+  };
+
+  const currentPath = normalizePath(window.location.href);
 
   navLinks.forEach(link => {
-    const linkHref = link.getAttribute("href");
-    if (linkHref === currentPath) {
+    const linkPath = normalizePath(link.getAttribute("href"));
+    if (linkPath === currentPath) {
       link.classList.add("active");
     } else {
       link.classList.remove("active");

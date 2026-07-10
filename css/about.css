@@ -1,0 +1,418 @@
+/* ==========================================================================
+   About Page Styles
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Page Header  (reusable pattern — about / services / contact)
+   PRD: PRD-about-page-header-section.md §5, §7
+   -------------------------------------------------------------------------- */
+
+.page-header {
+  background: var(--color-bg);                    /* Same as body — no heavy banner */
+  padding: 64px 0;
+  border-bottom: 1px solid var(--color-border);   /* Clean seam into section below */
+  overflow: hidden;                               /* Prevent any child overflow */
+}
+
+.page-header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Eyebrow — matches hero + services-preview eyebrow treatment */
+.page-header-eyebrow {
+  display: block;
+  font-family: var(--font-body);          /* Work Sans */
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);             /* Terracotta */
+  margin-bottom: 10px;
+}
+
+/* H1 — deliberately smaller than landing-page Hero H1 (wayfinding, not marketing) */
+.page-header-title {
+  font-family: var(--font-headings);      /* Bitter */
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  color: var(--color-ink);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+/* Philosophy line */
+.page-header-lead {
+  font-family: var(--font-body);          /* Work Sans */
+  font-size: 1rem;
+  color: var(--color-secondary);
+  max-width: 55ch;                        /* ~55 chars per line for readability */
+  line-height: 1.65;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* ── Responsive: tablet ── */
+@media (max-width: 768px) {
+  .page-header {
+    padding: 48px 0;
+  }
+}
+
+/* ── Responsive: mobile ── */
+@media (max-width: 480px) {
+  .page-header {
+    padding: 36px 0;
+  }
+
+  .page-header-inner {
+    padding: 0 16px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   CA Profile Section
+   PRD: PRD-ca-profile-section.md §5
+   -------------------------------------------------------------------------- */
+
+.ca-profile {
+  background: var(--color-bg);
+  padding: 80px 0;
+  overflow: hidden;                  /* Prevent child grid from escaping */
+}
+
+.ca-profile-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+  width: 100%;
+  display: grid;
+  /* fr units respect the gap automatically — % + gap > 100% causes overflow */
+  grid-template-columns: 2fr 3fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* ── Visual column ── */
+/* min-width: 0 stops grid children from overflowing their column track */
+.ca-profile-visual {
+  min-width: 0;
+}
+
+.ca-profile-avatar {
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 3 / 4;
+  background: var(--color-border);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ca-profile-photo {
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  display: block;
+}
+
+.ca-avatar-initials {
+  font-family: var(--font-headings);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+  letter-spacing: 0.05em;
+}
+
+/* ── Content column ── */
+/* min-width: 0 prevents long words / monospace values from overflowing */
+.ca-profile-content {
+  min-width: 0;
+}
+.ca-profile-name {
+  font-family: var(--font-headings);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 700;
+  color: var(--color-ink);
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.ca-profile-role {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-bottom: 32px;
+}
+
+/* ── Credentials card ── */
+.ca-credentials {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 8px 24px;
+  margin-bottom: 36px;
+}
+
+.ca-credential-row {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--color-border);
+  align-items: center;
+}
+
+.ca-credential-row:last-child {
+  border-bottom: none;
+}
+
+.ca-credentials dt {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-secondary);
+}
+
+.ca-credentials dd {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+/* ── Bio ── */
+.ca-profile-bio p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-ink);
+  line-height: 1.75;
+  width: 100%;                       /* Constrain to column, not a fixed ch value */
+  max-width: 65ch;
+  margin-bottom: 18px;
+  text-align: justify;
+  text-justify: inter-word;
+  word-break: break-word;            /* Prevent long words causing overflow */
+}
+
+.ca-profile-bio p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Responsive: large tablet (769px – 1024px) ── */
+@media (max-width: 1024px) {
+  .ca-profile-inner {
+    gap: 36px;
+  }
+}
+
+/* ── Responsive: tablet — single column at 900px and below ── */
+@media (max-width: 900px) {
+  .ca-profile-inner {
+    grid-template-columns: 1fr;    /* Stack into single column */
+    gap: 32px;
+  }
+
+  .ca-profile-visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .ca-profile-avatar,
+  .ca-profile-photo {
+    max-width: 220px;
+    aspect-ratio: 1;
+  }
+
+  .ca-avatar-initials {
+    font-size: 2.5rem;
+  }
+
+  .ca-profile-bio p {
+    max-width: 100%;               /* Full width in single-column layout */
+  }
+}
+
+/* ── Responsive: mobile ── */
+@media (max-width: 480px) {
+  .ca-profile {
+    padding: 48px 0;
+  }
+
+  .ca-profile-inner {
+    padding: 0 16px;
+  }
+
+  .ca-profile-avatar,
+  .ca-profile-photo {
+    max-width: 180px;
+  }
+
+  .ca-avatar-initials {
+    font-size: 2rem;
+  }
+
+  .ca-credentials {
+    padding: 8px 16px;
+  }
+
+  .ca-credential-row {
+    grid-template-columns: 1fr;    /* Stack label above value on small screens */
+    gap: 2px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Team Section
+   PRD: PRD-team-section.md §5
+   -------------------------------------------------------------------------- */
+
+.team {
+  background: var(--color-bg);
+  padding: 64px 0;
+  overflow: hidden;
+}
+
+.team-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* ── Section heading ── */
+.team-eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  margin-bottom: 10px;
+}
+
+.team-title {
+  font-family: var(--font-headings);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: 40px;
+}
+
+/* ── Cards grid ──
+   auto-fit + minmax: survives a 3rd card being added without CSS changes (PRD §6) */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+/* ── Individual card ── */
+.team-member-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  /* Restrained hover — no cursor:pointer (cards are not clickable) */
+  transition: transform var(--transition-speed) ease,
+              box-shadow var(--transition-speed) ease;
+}
+
+.team-member-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(44, 54, 57, 0.10);
+}
+
+/* ── Circular avatar ── */
+.team-avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+}
+
+.team-avatar-initials {
+  font-family: var(--font-headings);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+  letter-spacing: 0.04em;
+}
+
+/* Photo variant (for when real photos are added) */
+.team-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Name ── */
+.team-member-name {
+  font-family: var(--font-headings);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: 6px;
+}
+
+/* ── Role label ── */
+.team-member-role {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-secondary);
+  text-align: center;
+}
+
+/* ── Area of focus (optional — uncomment in HTML when confirmed) ── */
+.team-member-focus {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-ink);
+  margin-top: 12px;
+  text-align: center;
+}
+
+/* ── Responsive: mobile ── */
+@media (max-width: 480px) {
+  .team {
+    padding: 40px 0;
+  }
+
+  .team-inner {
+    padding: 0 16px;
+  }
+
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team-title {
+    margin-bottom: 28px;
+  }
+}

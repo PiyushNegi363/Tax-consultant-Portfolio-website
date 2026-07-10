@@ -1,0 +1,5 @@
+# robots.txt for Negi Tax Consultant
+User-agent: *
+Allow: /
+
+Sitemap: https://www.negitaxconsultant.com/sitemap.xml

@@ -1,4 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Helper to update dynamic copyright years in DOM
+  const updateCopyrightYear = () => {
+    const yearElements = document.querySelectorAll(".dynamic-year");
+    const currentYear = new Date().getFullYear();
+    yearElements.forEach(el => {
+      el.textContent = currentYear;
+    });
+  };
+
+  // Run immediately on page load to update fallback footer
+  updateCopyrightYear();
+
   // Inject Header
   const headerPlaceholder = document.getElementById("header-placeholder");
   if (headerPlaceholder) {
@@ -31,11 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .then(html => {
         footerPlaceholder.innerHTML = html;
-        // Update dynamic copyright year
-        const yearSpan = document.getElementById("dynamic-year");
-        if (yearSpan) {
-          yearSpan.textContent = new Date().getFullYear();
-        }
+        // Run again to update the newly injected footer
+        updateCopyrightYear();
         // Dispatch event so scroll-reveal knows footer is ready in DOM
         document.dispatchEvent(new CustomEvent("footer-loaded"));
       })

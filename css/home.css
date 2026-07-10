@@ -403,12 +403,9 @@
   border: 1px solid rgba(228, 223, 211, 0.15); /* inner gold-beige border */
 }
 
-.avatar-initials {
-  font-family: var(--font-headings);
-  font-size: 3rem;
-  font-weight: 600;
-  color: var(--color-bg); /* cream initials */
-  letter-spacing: 0.05em;
+.avatar-logo {
+  width: 120px;
+  height: 120px;
 }
 
 .about-preview-content {
@@ -601,8 +598,9 @@
     height: 200px;
   }
 
-  .avatar-initials {
-    font-size: 2.5rem;
+  .avatar-logo {
+    width: 90px;
+    height: 90px;
   }
 
   .cta-banner {

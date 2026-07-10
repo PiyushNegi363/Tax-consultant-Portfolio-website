@@ -133,9 +133,21 @@ header.scrolled {
 .brand {
   text-decoration: none;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 12px;
   color: var(--color-ink);
   outline-offset: 6px;
+}
+
+.brand-logo {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
 }
 
 .brand-name {
@@ -525,6 +537,14 @@ header.scrolled {
   gap: 16px;
 }
 
+.footer-brand-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-bg); /* cream text in dark footer */
+  margin-bottom: 12px;
+}
+
 .footer-col-brand .brand-name {
   font-family: var(--font-headings);
   font-weight: 600;
@@ -538,6 +558,8 @@ header.scrolled {
   line-height: 1.5;
   max-width: 32ch;
 }
+
+
 
 .footer-col-title {
   font-family: var(--font-headings);

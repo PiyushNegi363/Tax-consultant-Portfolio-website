@@ -5,73 +5,7 @@
 /* --------------------------------------------------------------------------
    Page Header  (reusable pattern — about / services / contact)
    PRD: PRD-about-page-header-section.md §5, §7
-   -------------------------------------------------------------------------- */
 
-.page-header {
-  background: var(--color-bg);                    /* Same as body — no heavy banner */
-  padding: 64px 0;
-  border-bottom: 1px solid var(--color-border);   /* Clean seam into section below */
-  overflow: hidden;                               /* Prevent any child overflow */
-}
-
-.page-header-inner {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 24px;
-  box-sizing: border-box;
-  width: 100%;
-}
-
-/* Eyebrow — matches hero + services-preview eyebrow treatment */
-.page-header-eyebrow {
-  display: block;
-  font-family: var(--font-body);          /* Work Sans */
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-accent);             /* Terracotta */
-  margin-bottom: 10px;
-}
-
-/* H1 — deliberately smaller than landing-page Hero H1 (wayfinding, not marketing) */
-.page-header-title {
-  font-family: var(--font-headings);      /* Bitter */
-  font-size: clamp(2rem, 3.5vw, 2.75rem);
-  font-weight: 700;
-  color: var(--color-ink);
-  line-height: 1.2;
-  margin-bottom: 16px;
-}
-
-/* Philosophy line */
-.page-header-lead {
-  font-family: var(--font-body);          /* Work Sans */
-  font-size: 1rem;
-  color: var(--color-secondary);
-  max-width: 55ch;                        /* ~55 chars per line for readability */
-  line-height: 1.65;
-  text-align: justify;
-  text-justify: inter-word;
-}
-
-/* ── Responsive: tablet ── */
-@media (max-width: 768px) {
-  .page-header {
-    padding: 48px 0;
-  }
-}
-
-/* ── Responsive: mobile ── */
-@media (max-width: 480px) {
-  .page-header {
-    padding: 36px 0;
-  }
-
-  .page-header-inner {
-    padding: 0 16px;
-  }
-}
 
 /* --------------------------------------------------------------------------
    CA Profile Section
@@ -329,7 +263,10 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  /* Restrained hover — no cursor:pointer (cards are not clickable) */
+  /* Restrained hover — no cursor:pointer (cards are not clickable)
+     Hover treatment: translateY(-3px) + shadow.
+     Decision confirmed 2026-07-11 (via PRD-team-contact-row-section.md §8 Q3),
+     also closes PRD-team-section.md §8 Q2 */
   transition: transform var(--transition-speed) ease,
               box-shadow var(--transition-speed) ease;
 }
@@ -414,5 +351,228 @@
 
   .team-title {
     margin-bottom: 28px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   What We Stand For Section
+   PRD: PRD-what-we-stand-for-section.md
+   -------------------------------------------------------------------------- */
+
+.stand-for {
+  background-color: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  padding: 80px 0;
+  overflow: hidden;
+}
+
+.stand-for-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.stand-for-eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  margin-bottom: 10px;
+}
+
+.stand-for-title {
+  font-family: var(--font-headings);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.stand-for-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  width: 100%;
+}
+
+.stand-for-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  text-align: left;
+}
+
+.stand-for-number {
+  font-family: var(--font-headings);
+  font-weight: 600;
+  font-size: 2.25rem;
+  color: var(--color-accent);
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.stand-for-number::after {
+  content: '';
+  flex-grow: 1;
+  height: 1px;
+  background-color: var(--color-border);
+  margin-right: 48px;
+}
+
+.stand-for-item-title {
+  font-family: var(--font-headings);
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--color-ink);
+}
+
+.stand-for-item-desc {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-secondary);
+  line-height: 1.6;
+  max-width: 45ch; /* Comfortable reading width for longer text */
+}
+
+/* ── Responsive: tablet ── */
+@media (max-width: 768px) {
+  .stand-for {
+    padding: 64px 0;
+  }
+}
+
+/* ── Responsive: mobile ── */
+@media (max-width: 480px) {
+  .stand-for {
+    padding: 48px 0;
+  }
+
+  .stand-for-inner {
+    padding: 0 16px;
+  }
+
+  .stand-for-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .stand-for-item {
+    align-items: center;
+    text-align: center;
+  }
+
+  .stand-for-number::after {
+    display: none; /* Hide line on mobile stacked layout */
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Credentials / Trust Strip (Extended)
+   PRD: PRD-about-credentials-strip-section.md
+   -------------------------------------------------------------------------- */
+
+.credentials-extended {
+  background-color: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: 48px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.credentials-inner {
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.credentials-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+}
+
+.credential-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px 24px;
+}
+
+/* Thin ledger lines separating statistics */
+.credential-item:not(:last-child) {
+  border-right: 1px dashed var(--color-border);
+}
+
+.credential-value {
+  font-family: var(--font-headings);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 2.5vw, 2rem); /* Slightly smaller than landing page */
+  color: var(--color-accent);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.credential-caption {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-secondary);
+}
+
+/* ── Responsive: tablet/mobile ── */
+@media (max-width: 768px) {
+  .credentials-extended {
+    padding: 36px 0;
+  }
+  
+  .credentials-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 0;
+  }
+
+  /* Adjust borders for 2x2 grid layout */
+  .credential-item:nth-child(even) {
+    border-right: none;
+  }
+  
+  .credential-item:nth-child(odd) {
+    border-right: 1px dashed var(--color-border);
+  }
+
+  /* Add horizontal separator for first row on tablet/mobile */
+  .credential-item:nth-child(1),
+  .credential-item:nth-child(2) {
+    border-bottom: 1px dashed var(--color-border);
+    padding-bottom: 24px;
+  }
+
+  .credential-item:nth-child(3),
+  .credential-item:nth-child(4) {
+    padding-top: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .credentials-inner {
+    padding: 0 16px;
   }
 }

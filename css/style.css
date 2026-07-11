@@ -306,6 +306,37 @@ header.scrolled {
   transform: translateY(1px);
 }
 
+/* Secondary / Outlined Button Styling */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--color-ink);
+  border: 1px solid var(--color-ink);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  transition: background-color var(--transition-speed) ease, 
+              color var(--transition-speed) ease,
+              transform 0.1s ease;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-ink);
+  color: var(--color-bg);
+}
+
+.btn-secondary:active {
+  transform: translateY(1px);
+}
+
+
 /* WhatsApp Animations */
 @keyframes whatsapp-pulse {
   0% {
@@ -473,7 +504,7 @@ header.scrolled {
     transition-delay: 0.32s;
   }
 
-  .btn-whatsapp {
+  .nav-menu .btn-whatsapp {
     justify-content: center;
     width: 100%;
     font-size: 1rem;
@@ -818,5 +849,187 @@ header.scrolled {
     right: 20px;
     width: 40px;
     height: 40px;
+  }
+}
+
+/* ==========================================================================
+   Shared Component: CTA Banner
+   ========================================================================== */
+.cta-banner {
+  background: linear-gradient(135deg, #2C3639 0%, #1A2224 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 72px 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(228, 223, 211, 0.15); /* subtle transition divider before footer */
+}
+
+/* Subtle accent glow */
+.cta-banner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(184, 92, 56, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-banner-inner {
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+.cta-banner-title {
+  font-family: var(--font-headings);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+  color: var(--color-bg); /* cream heading text */
+  line-height: 1.25;
+}
+
+.cta-banner-support {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: rgba(251, 249, 244, 0.75); /* muted cream text */
+  line-height: 1.5;
+  max-width: 44ch;
+  margin-bottom: 8px;
+}
+
+.cta-banner-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+/* WhatsApp button specific tweaks inside CTA banner */
+.cta-banner-whatsapp {
+  padding: 12px 24px;
+  font-size: 0.95rem;
+}
+
+/* Light Inverted Outlined Button */
+.btn-outline-light {
+  border: 1px solid var(--color-bg);
+  color: var(--color-bg);
+  background-color: transparent;
+}
+
+.btn-outline-light:hover {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+}
+
+.btn-outline-light:active {
+  transform: translateY(1px);
+}
+
+/* ── Responsive overrides for shared CTA banner ── */
+@media (max-width: 900px) {
+  .cta-banner {
+    padding: 64px 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cta-banner {
+    padding: 48px 20px;
+  }
+
+  .cta-banner-inner {
+    gap: 12px;
+  }
+
+  .cta-banner-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .cta-banner-actions a {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   Shared Component: Page Header (reusable across subpages)
+   ========================================================================== */
+.page-header {
+  background: var(--color-bg);                    /* Same as body — no heavy banner */
+  padding: 64px 0;
+  border-bottom: 1px solid var(--color-border);   /* Clean seam into section below */
+  overflow: hidden;                               /* Prevent any child overflow */
+}
+
+.page-header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Eyebrow — matches hero + services-preview eyebrow treatment */
+.page-header-eyebrow {
+  display: block;
+  font-family: var(--font-body);          /* Work Sans */
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);             /* Terracotta */
+  margin-bottom: 10px;
+}
+
+/* H1 — deliberately smaller than landing-page Hero H1 (wayfinding, not marketing) */
+.page-header-title {
+  font-family: var(--font-headings);      /* Bitter */
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  color: var(--color-ink);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+/* Lead summary line */
+.page-header-lead {
+  font-family: var(--font-body);          /* Work Sans */
+  font-size: 1rem;
+  color: var(--color-secondary);
+  max-width: 55ch;                        /* ~55 chars per line for readability */
+  line-height: 1.65;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* ── Responsive: tablet ── */
+@media (max-width: 768px) {
+  .page-header {
+    padding: 48px 0;
+  }
+}
+
+/* ── Responsive: mobile ── */
+@media (max-width: 480px) {
+  .page-header {
+    padding: 36px 0;
+  }
+
+  .page-header-inner {
+    padding: 0 16px;
   }
 }

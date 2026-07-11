@@ -1,0 +1,594 @@
+/* ==========================================================================
+   Contact Page Styling
+   PRD: PRD-contact-details-block-section.md & PRD-contact-page-header-section.md
+   ========================================================================== */
+
+.contact-section {
+  background-color: var(--color-bg);
+  padding: 72px 0;
+  overflow: hidden;
+}
+
+.contact-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+/* Left Column: Contact Details styling */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contact-info-title {
+  font-family: var(--font-headings);
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--color-ink);
+  line-height: 1.25;
+}
+
+.contact-info-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.contact-info-row:first-child {
+  padding-top: 0;
+}
+
+.contact-info-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.contact-info-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-secondary);
+}
+
+.contact-info-value {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-ink);
+  line-height: 1.5;
+}
+
+.contact-info-value.mono-text,
+.contact-info-value.mono-text a {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.contact-link {
+  color: var(--color-ink);
+  text-decoration: none;
+  transition: color var(--transition-speed) ease;
+}
+
+/* Underline-grow effect scoped to contact section only —
+   prevents bleeding into footer which also uses .contact-link */
+.contact-section .contact-link {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+}
+
+.contact-section .contact-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-accent);
+  transition: width var(--transition-speed) ease;
+}
+
+.contact-link:hover {
+  color: var(--color-accent);
+}
+
+.contact-section .contact-link:hover::after {
+  width: 100%;
+}
+
+.contact-address {
+  font-style: normal;
+  line-height: 1.6;
+}
+
+.unconfirmed-badge {
+  font-size: 0.72rem;
+  font-style: italic;
+  color: var(--color-accent);
+  margin-left: 4px;
+}
+
+/* Right Column: Form Card styling */
+.form-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 40px;
+  box-shadow: 0 4px 12px rgba(44, 54, 57, 0.03);
+}
+
+.form-title {
+  font-family: var(--font-headings);
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--color-ink);
+  margin-bottom: 24px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.field-label {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-ink);
+}
+
+.required-star {
+  color: var(--color-accent);
+}
+
+.field-input,
+.field-select,
+.field-textarea {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--color-ink);
+  background-color: var(--color-bg); /* warm off-white background */
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 12px 14px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.field-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%232C3639' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 10px;
+  padding-right: 36px;
+}
+
+.field-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.field-input:focus,
+.field-select:focus,
+.field-textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(184, 92, 56, 0.12);
+}
+
+/* Error States */
+.field-group.error .field-input,
+.field-group.error .field-select,
+.field-group.error .field-textarea {
+  border-color: var(--color-error);
+}
+
+.field-group.error .field-input:focus,
+.field-group.error .field-select:focus,
+.field-group.error .field-textarea:focus {
+  box-shadow: 0 0 0 3px rgba(179, 38, 30, 0.12);
+}
+
+.field-error {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--color-error);
+  display: none;
+  margin-top: 4px;
+}
+
+.field-group.error .field-error {
+  display: block;
+}
+
+.form-submit-btn {
+  margin-top: 10px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  border: none;
+}
+
+.form-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.form-note {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--color-secondary);
+  line-height: 1.4;
+  text-align: center;
+}
+
+.form-status {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 14px;
+  display: none;
+  padding: 10px;
+  border-radius: var(--border-radius);
+}
+
+.form-status.ok {
+  display: block;
+  background-color: rgba(62, 124, 92, 0.08);
+  color: var(--color-success);
+  border: 1px solid rgba(62, 124, 92, 0.2);
+}
+
+/* Map Embed styling */
+.map-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.map-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background-color: var(--color-bg); /* fallback background while loading */
+}
+
+.map-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.map-directions-link {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: none;
+  align-self: start;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color var(--transition-speed) ease;
+}
+
+.map-directions-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-accent);
+  transition: width var(--transition-speed) ease;
+}
+
+.map-directions-link:hover::after {
+  width: 100%;
+}
+
+/* ── Responsive: tablet ── */
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+/* ── Responsive: mobile ── */
+@media (max-width: 480px) {
+  .contact-section {
+    padding: 48px 0;
+  }
+
+  .contact-inner {
+    padding: 0 16px;
+  }
+
+  .contact-info-row {
+    padding: 14px 0;
+  }
+
+  .form-card {
+    padding: 24px;
+  }
+
+  .field-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+/* ==========================================================================
+   Team Contact Row
+   ========================================================================== */
+.team-contact-row {
+  background-color: var(--color-bg);
+  padding: 52px 0;
+}
+
+.team-contact-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.team-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.team-contact-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  /* Restrained hover — no cursor:pointer (card itself is not clickable)
+     Hover treatment: translateY(-3px) + shadow.
+     Decision confirmed 2026-07-11, also closes PRD-team-section.md §8 Q2 */
+  transition: transform var(--transition-speed) ease,
+              box-shadow var(--transition-speed) ease;
+}
+
+.team-contact-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(44, 54, 57, 0.10);
+}
+
+.team-contact-name {
+  font-family: var(--font-headings);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.team-contact-role {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-secondary);
+}
+
+.team-contact-phone {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  color: var(--color-accent);
+  text-decoration: none;
+  margin-top: 6px;
+  align-self: start;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color var(--transition-speed) ease;
+}
+
+.team-contact-phone::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-accent);
+  transition: width var(--transition-speed) ease;
+}
+
+.team-contact-phone:hover::after {
+  width: 100%;
+}
+
+/* ── Responsive: mobile ── */
+@media (max-width: 480px) {
+  .team-contact-row {
+    padding: 36px 0;
+  }
+
+  .team-contact-inner {
+    padding: 0 16px;
+  }
+}
+
+/* ==========================================================================
+   FAQ Section
+   PRD: PRD-faq-section.md
+   Animation: grid-template-rows 0fr→1fr (no fixed max-height needed)
+   No-JS fallback: .faq-answer defaults to visible; JS collapses on DOMContentLoaded
+   ========================================================================== */
+.faq {
+  background-color: var(--color-bg);
+  padding: 56px 0;
+}
+
+.faq-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.faq-heading {
+  font-family: var(--font-headings);
+  font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: 32px;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Individual FAQ item ── */
+.faq-item {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+/* ── Question button ── */
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-headings);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  line-height: 1.4;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.faq-question:hover {
+  background-color: var(--color-border);
+}
+
+.faq-question:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+/* ── Chevron icon ── */
+.faq-chevron {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--color-secondary);
+  transition: transform var(--transition-speed) ease;
+}
+
+/* Rotate chevron when item is open */
+.faq-item--open .faq-chevron {
+  transform: rotate(180deg);
+}
+
+/* ── Answer panel — grid-template-rows animation technique ── */
+/* Default (no-JS): answer is visible */
+.faq-answer {
+  display: grid;
+  grid-template-rows: 1fr; /* visible by default for no-JS */
+  transition: grid-template-rows var(--transition-speed) ease;
+}
+
+/* JS collapses this on load by adding js-enabled to <html> */
+.js-enabled .faq-answer {
+  grid-template-rows: 0fr;
+}
+
+/* When open, restore to natural height */
+.js-enabled .faq-item--open .faq-answer {
+  grid-template-rows: 1fr;
+}
+
+/* Inner wrapper — min-height: 0 enables grid-rows collapse */
+.faq-answer-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.faq-answer-text {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-secondary);
+  line-height: 1.65;
+  padding: 0 20px 20px;
+  margin: 0;
+}
+
+/* ── prefers-reduced-motion: instant expand/collapse ── */
+@media (prefers-reduced-motion: reduce) {
+  .faq-answer,
+  .faq-chevron {
+    transition: none;
+  }
+}
+
+/* ── Responsive: mobile ── */
+@media (max-width: 480px) {
+  .faq {
+    padding: 36px 0;
+  }
+
+  .faq-inner {
+    padding: 0 16px;
+  }
+
+  .faq-question {
+    padding: 16px;
+    font-size: 0.92rem;
+  }
+
+  .faq-answer-text {
+    padding: 0 16px 16px;
+  }
+}

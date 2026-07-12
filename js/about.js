@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     teamGrid.innerHTML = "";
     siteData.team.forEach(member => {
       const card = document.createElement("div");
-      card.className = "team-member-card";
+      card.className = "team-member-card reveal-item reveal-left";
       card.innerHTML = `
         <div class="team-avatar" aria-label="${member.name}">
           <span class="team-avatar-initials">${member.avatarInitials}</span>

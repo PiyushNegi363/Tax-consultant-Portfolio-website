@@ -38,6 +38,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
@@ -47,6 +48,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
 }
 
 p {
@@ -588,6 +590,7 @@ header.scrolled {
   color: #B9C0B4; /* muted warm grey */
   line-height: 1.5;
   max-width: 32ch;
+  text-align: left; /* Override global paragraph justify */
 }
 
 .footer-col-title {
@@ -713,29 +716,42 @@ header.scrolled {
 /* Scroll Reveal base styles (only if JS is enabled) */
 .js-enabled .reveal {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(0, 48px, 0);
+  transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
-}
-
-.js-enabled .reveal.revealed {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 /* Staggered lists / group reveal items */
 .js-enabled .reveal-group .reveal-item {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(0, 48px, 0);
+  transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
+/* Multi-directional Reveal Overrides (Initial offsets) */
+.js-enabled .reveal.reveal-left,
+.js-enabled .reveal-group .reveal-item.reveal-left {
+  transform: translate3d(-48px, 0, 0);
+}
+
+.js-enabled .reveal.reveal-right,
+.js-enabled .reveal-group .reveal-item.reveal-right {
+  transform: translate3d(48px, 0, 0);
+}
+
+.js-enabled .reveal.reveal-scale,
+.js-enabled .reveal-group .reveal-item.reveal-scale {
+  transform: scale3d(0.95, 0.95, 1);
+}
+
+/* Final Revealed States (Declared last to override initial offsets) */
+.js-enabled .reveal.revealed,
 .js-enabled .reveal-group .reveal-item.revealed {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
 }
 
 /* Buttons / CTAs hover states (Slight lift) */

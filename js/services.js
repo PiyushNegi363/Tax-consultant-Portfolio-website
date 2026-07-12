@@ -8,9 +8,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const servicesStackedList = document.querySelector("#services-stacked-list");
   if (servicesStackedList && siteData.services) {
     servicesStackedList.innerHTML = "";
-    siteData.services.forEach(service => {
+    siteData.services.forEach((service, index) => {
       const block = document.createElement("div");
-      block.className = "service-block reveal-item";
+      const isOdd = index % 2 === 0;
+      block.className = `service-block reveal-item ${isOdd ? "reveal-left" : "reveal-right"}`;
       
       const waText = encodeURIComponent(`I'd like to enquire about ${service.title}.`);
       const waLink = `${siteData.contact.whatsappLink}?text=${waText}`;

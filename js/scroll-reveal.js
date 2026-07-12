@@ -29,7 +29,7 @@
             items.forEach((item, index) => {
               setTimeout(() => {
                 item.classList.add('revealed');
-              }, index * 100); // 100ms stagger delay
+              }, index * 200); // 200ms stagger delay
             });
           } else {
             // Single element reveal

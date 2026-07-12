@@ -207,10 +207,11 @@
 
 /* Subtle card lift & warm bg shift on hover */
 .service-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
   border-color: var(--color-accent);
-  background-color: rgba(251, 249, 244, 0.4);
-  box-shadow: 0 12px 28px rgba(44, 54, 57, 0.05);
+  background-color: #FFFCF9;
+  box-shadow: 0 16px 40px rgba(44, 54, 57, 0.10), 
+              0 4px 12px rgba(184, 92, 56, 0.08);
 }
 
 .service-tag {

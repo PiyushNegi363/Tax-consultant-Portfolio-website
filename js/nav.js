@@ -64,4 +64,22 @@ function initNavigation() {
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
   }
+
+  // 4. Back-to-Top Button
+  const backToTop = document.getElementById("back-to-top");
+  if (backToTop) {
+    // Show/hide based on scroll depth
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        backToTop.classList.add("visible");
+      } else {
+        backToTop.classList.remove("visible");
+      }
+    }, { passive: true });
+
+    // Smooth scroll to top on click
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
 }

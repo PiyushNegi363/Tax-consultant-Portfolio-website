@@ -24,7 +24,7 @@ const siteData = {
     emailMailto: "mailto:nsnegi.hld@gmail.com",
     address: "Near Block Office, Haldwani, Nainital, Uttarakhand",
     addressMapQuery: "Near+Block+Office+Haldwani+Nainital+Uttarakhand",
-    officeHours: "Mon – Sat, 10:00 AM – 6:00 PM (Pending Confirmation)"
+    officeHours: "Mon – Sat, 10:00 AM – 6:00 PM"
   },
   services: [
     {

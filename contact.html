@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us | Negi Tax Consultant Haldwani</title>
   <meta name="description" content="Get in touch with Negi Tax Consultant in Haldwani. Call, email, or message us on WhatsApp for professional tax consultancy.">
-  <link rel="icon" type="image/png" href="logo/logo.png">
+  <link rel="icon" type="image/png" href="assets/logo/logo.png">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/contact.css">
 </head>
@@ -66,7 +66,7 @@
               <div class="contact-info-row">
                 <dt class="contact-info-label">Phone</dt>
                 <dd class="contact-info-value mono-text">
-                  <a href="tel:+919690822761" class="contact-link">+91 96908 22761</a>
+                  <a href="tel:+919690822761" class="contact-link" id="contact-phone-link">+91 96908 22761</a>
                 </dd>
               </div>
 
@@ -74,7 +74,7 @@
               <div class="contact-info-row">
                 <dt class="contact-info-label">WhatsApp</dt>
                 <dd class="contact-info-value mono-text">
-                  <a href="https://wa.me/919690822761" class="contact-link" target="_blank" rel="noopener">+91 96908 22761</a>
+                  <a href="https://wa.me/919690822761" class="contact-link" target="_blank" rel="noopener" id="contact-whatsapp-link">+91 96908 22761</a>
                 </dd>
               </div>
 
@@ -82,7 +82,7 @@
               <div class="contact-info-row">
                 <dt class="contact-info-label">Email</dt>
                 <dd class="contact-info-value mono-text">
-                  <a href="mailto:nsnegi.hld@gmail.com" class="contact-link">nsnegi.hld@gmail.com</a>
+                  <a href="mailto:nsnegi.hld@gmail.com" class="contact-link" id="contact-email-link">nsnegi.hld@gmail.com</a>
                 </dd>
               </div>
 
@@ -90,7 +90,7 @@
               <div class="contact-info-row">
                 <dt class="contact-info-label">Office Address</dt>
                 <dd class="contact-info-value">
-                  <address class="contact-address">
+                  <address class="contact-address" id="contact-address">
                     Near Block Office,<br>
                     Haldwani, Nainital,<br>
                     Uttarakhand
@@ -102,7 +102,7 @@
               <!-- NOTE: Mon-Sat 10 AM - 6 PM is unconfirmed, pending CA N.S. Negi's confirmation -->
               <div class="contact-info-row">
                 <dt class="contact-info-label">Office Hours</dt>
-                <dd class="contact-info-value">
+                <dd class="contact-info-value" id="contact-hours">
                   Mon – Sat, 10:00 AM – 6:00 PM <span class="unconfirmed-badge" title="Pending operational confirmation from N.S. Negi">(Pending Confirmation)</span>
                 </dd>
               </div>
@@ -113,12 +113,14 @@
             <div class="map-container">
               <div class="map-frame">
                 <iframe 
+                  id="contact-map-iframe"
                   src="https://maps.google.com/maps?q=Near%20Block%20Office,%20Haldwani,%20Nainital,%20Uttarakhand&t=&z=14&ie=UTF8&iwloc=&output=embed" 
                   loading="lazy" 
                   title="Office location map">
                 </iframe>
               </div>
-              <a href="https://www.google.com/maps/search/?api=1&query=Near+Block+Office+Haldwani+Nainital+Uttarakhand" 
+              <a id="contact-map-directions-link"
+                 href="https://www.google.com/maps/search/?api=1&query=Near+Block+Office+Haldwani+Nainital+Uttarakhand" 
                  target="_blank" 
                  rel="noopener" 
                  class="map-directions-link">
@@ -201,7 +203,7 @@
     ════════════════════════════════════════ -->
     <section class="team-contact-row">
       <div class="team-contact-inner">
-        <div class="team-contact-grid reveal-group">
+        <div class="team-contact-grid reveal-group" id="contact-team-grid">
 
           <!-- Card: Ankit Negi -->
           <div class="team-contact-card reveal-item">

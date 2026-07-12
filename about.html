@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us | Negi Tax Consultant Haldwani</title>
   <meta name="description" content="Meet CA N.S. Negi and the team at Negi Tax Consultant, providing reliable financial and tax expertise in Uttarakhand.">
-  <link rel="icon" type="image/png" href="logo/logo.png">
+  <link rel="icon" type="image/png" href="assets/logo/logo.png">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/about.css">
 </head>
@@ -74,8 +74,8 @@
         <!-- ── Content column ── -->
         <div class="ca-profile-content">
 
-          <h2 class="ca-profile-name">N.S. Negi</h2>
-          <p class="ca-profile-role">Proprietor &amp; Chartered Accountant</p>
+          <h2 class="ca-profile-name" id="ca-profile-name">N.S. Negi</h2>
+          <p class="ca-profile-role" id="ca-profile-role">Proprietor &amp; Chartered Accountant</p>
 
           <!-- Credentials card (structured definition list per PRD §4) -->
           <!-- PLACEHOLDER: All values below are dummy — replace with real confirmed data from N.S. Negi before launch -->
@@ -83,28 +83,28 @@
             <div class="ca-credential-row">
               <dt>Qualification</dt>
               <!-- PLACEHOLDER: Confirm FCA (Fellow) vs. ACA (Associate) — legally distinct -->
-              <dd>B.Com, FCA (Fellow Chartered Accountant)</dd>
+              <dd id="ca-credential-qualification">B.Com, FCA (Fellow Chartered Accountant)</dd>
             </div>
             <div class="ca-credential-row">
               <dt>ICAI Membership No.</dt>
               <!-- PLACEHOLDER: Replace with real ICAI membership number — do not launch with this dummy value -->
-              <dd>XXXXXX</dd>
+              <dd id="ca-credential-membership">XXXXXX</dd>
             </div>
-            <div class="ca-credential-row">
+            <div class="ca-credential-row" id="ca-credential-frn-row">
               <dt>Firm Registration No.</dt>
               <!-- PLACEHOLDER: Confirm whether FRN applies — omit this entire row if the practice does not have one -->
-              <dd>XXXXXXX</dd>
+              <dd id="ca-credential-frn">XXXXXXX</dd>
             </div>
             <div class="ca-credential-row">
               <dt>Experience</dt>
               <!-- PLACEHOLDER: Confirm exact years in practice -->
-              <dd>18+ years in practice</dd>
+              <dd id="ca-credential-experience">18+ years in practice</dd>
             </div>
           </dl>
 
           <!-- Bio — 2–3 paragraphs -->
           <!-- PLACEHOLDER: Bio below is a structural placeholder. Replace with real content written or approved by N.S. Negi before launch (PRD §3.2 and §7) -->
-          <div class="ca-profile-bio">
+          <div class="ca-profile-bio" id="ca-profile-bio-container">
             <p>CA N.S. Negi is a Fellow Chartered Accountant registered with the Institute of Chartered Accountants of India (ICAI), practising in Haldwani, Uttarakhand. His work covers accounting, taxation, and compliance advisory for individuals, traders, and small businesses across the Nainital district.</p>
             <p>The practice focuses on income tax return filing, GST registration and compliance, accounts bookkeeping, and business and firm registration services. CA Negi personally oversees all client engagements, ensuring accuracy and regulatory compliance at every stage.</p>
             <p>Based in Haldwani, the practice serves clients across the Kumaon region — including Nainital, Haldwani, Rudrapur, and surrounding areas — providing accessible and reliable financial guidance grounded in familiarity with the local business environment.</p>
@@ -131,7 +131,7 @@
         </div>
 
         <!-- Team cards grid -->
-        <div class="team-grid">
+        <div class="team-grid" id="about-team-grid">
 
           <!-- Card: Ankit Negi -->
           <div class="team-member-card">
@@ -303,8 +303,10 @@
   </div>
 
   <!-- Runtime Component Injection & Behavior -->
+  <script src="data/site-data.js"></script>
   <script src="js/components.js"></script>
   <script src="js/nav.js"></script>
   <script src="js/scroll-reveal.js"></script>
+  <script src="js/about.js"></script>
 </body>
 </html>

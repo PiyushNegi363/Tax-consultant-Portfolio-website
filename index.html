@@ -5,13 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Negi Tax Consultant | Chartered Accountant Haldwani</title>
   <meta name="description" content="Professional Chartered Accountancy services in Haldwani. Specializing in GST registration, ITR filing, audit, and tax consultation.">
-  <link rel="icon" type="image/png" href="logo/logo.png">
+  <link rel="icon" type="image/png" href="assets/logo/logo.png">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/preloader.css?v=1.1">
 </head>
-<body>
-  <!-- Header Placeholder with no-JS fallback -->
-  <div id="header-placeholder">
+<body class="preloader-active">
+  <!-- Page Preloader -->
+  <div id="preloader" aria-hidden="true">
+    <div class="preloader-images">
+      <img src="assets/Images/image1.jpg" alt="Loading">
+      <img src="assets/Images/image2.jpg" alt="Loading">
+      <img src="assets/Images/image3.jpg" alt="Loading">
+      <img src="assets/Images/image4.jpg" alt="Loading">
+      <img src="assets/Images/image5.jpg" alt="Loading">
+      <img src="assets/Images/image6.jpg" alt="Loading">
+      <img src="assets/Images/image7.jpg" alt="Loading">
+    </div>
+    <div id="rest-of-name">egi</div>
+    <div id="brand-media">TAX CONSULTANT</div>
+  </div>
+
+  <div id="page-wrapper">
+    <!-- Header Placeholder with no-JS fallback -->
+    <div id="header-placeholder">
     <header class="fallback-header">
       <div class="nav-inner">
         <a href="index.html" class="brand">
@@ -57,16 +74,16 @@
         <div class="trust-grid">
           <div class="trust-item reveal-item">
             <!-- PLACEHOLDER: Confirm exact years in practice before production launch -->
-            <span class="trust-value">18+</span>
+            <span class="trust-value" id="trust-years-val">18+</span>
             <span class="trust-caption">Years in Practice</span>
           </div>
           <div class="trust-item reveal-item">
             <!-- PLACEHOLDER: Confirm FCA (Fellow) vs ACA (Associate) status before launch -->
-            <span class="trust-value">FCA</span>
+            <span class="trust-value" id="trust-member-val">FCA</span>
             <span class="trust-caption">ICAI Fellow Member</span>
           </div>
           <div class="trust-item reveal-item">
-            <span class="trust-value">3</span>
+            <span class="trust-value" id="trust-team-val">3</span>
             <span class="trust-caption">Professional Team</span>
           </div>
         </div>
@@ -81,7 +98,7 @@
           <h2 class="section-title">Our Services</h2>
         </div>
         
-        <div class="services-grid reveal-group">
+        <div class="services-grid reveal-group" id="services-preview-grid">
           <div class="service-card reveal-item">
             <span class="service-tag">Taxation</span>
             <h3 class="service-name">Income Tax Return Filing</h3>
@@ -167,8 +184,8 @@
         <!-- Content Column -->
         <div class="about-preview-content">
           <span class="about-eyebrow">Meet Your CA</span>
-          <h2 class="about-name">N. S. Negi</h2>
-          <p class="about-bio">N. S. Negi is a Fellow Chartered Accountant (FCA) based in Haldwani, with extensive experience in accounting, taxation, and compliance. He provides dedicated financial guidance and compliance support for individuals and small businesses across Uttarakhand.</p>
+          <h2 class="about-name" id="about-preview-name">N. S. Negi</h2>
+          <p class="about-bio" id="about-preview-bio">N. S. Negi is a Fellow Chartered Accountant (FCA) based in Haldwani, with extensive experience in accounting, taxation, and compliance. He provides dedicated financial guidance and compliance support for individuals and small businesses across Uttarakhand.</p>
           <a href="about.html" class="about-cta-link">Read Full Profile</a>
         </div>
       </div>
@@ -237,10 +254,15 @@
       </div>
     </footer>
   </div>
+  </div><!-- /#page-wrapper -->
 
   <!-- Runtime Component Injection & Behavior -->
+  <script src="data/site-data.js"></script>
+  <script src="js/gsap.min.js"></script>
+  <script src="js/preloader.js?v=1.2"></script>
   <script src="js/components.js"></script>
   <script src="js/nav.js"></script>
   <script src="js/scroll-reveal.js"></script>
+  <script src="js/home.js"></script>
 </body>
 </html>

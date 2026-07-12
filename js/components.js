@@ -8,7 +8,60 @@
     });
   };
 
+  function initPageTransitions() {
+    document.body.classList.add("js-page-transition");
+    
+    // Start fade-in transition
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.body.classList.add("page-loaded");
+      });
+    });
+
+    // Intercept links for smooth fade-out
+    document.addEventListener("click", (e) => {
+      const link = e.target.closest("a");
+      if (!link) return;
+      
+      const href = link.getAttribute("href");
+      const target = link.getAttribute("target");
+      
+      if (!href || 
+          href.startsWith("#") || 
+          href.startsWith("javascript:") ||
+          target === "_blank" ||
+          link.classList.contains("no-fade") ||
+          e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ||
+          href.startsWith("mailto:") ||
+          href.startsWith("tel:") ||
+          href.startsWith("https://wa.me") ||
+          href.startsWith("https://www.google.com/maps")
+      ) {
+        return;
+      }
+      
+      e.preventDefault();
+      document.body.classList.remove("page-loaded");
+      document.body.classList.add("page-fade-out");
+      
+      setTimeout(() => {
+        window.location.href = href;
+      }, 220); // 220ms matches the CSS transition speed
+    });
+
+    // Handle bfcache (back-forward cache) restorations
+    window.addEventListener("pageshow", (event) => {
+      if (event.persisted) {
+        document.body.classList.remove("page-fade-out");
+        document.body.classList.add("page-loaded");
+      }
+    });
+  }
+
   function initComponents() {
+    // Initialize page transitions
+    initPageTransitions();
+
     // Run immediately to update fallback footer
     updateCopyrightYear();
 

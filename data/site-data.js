@@ -32,6 +32,7 @@ const siteData = {
       number: "01",
       title: "Accounts Book Keeping",
       tag: "Accounting",
+      category: "Other",
       desc: "Ongoing recording and organization of financial transactions. We provide structured bookkeeping services available on a yearly or monthly schedule, ensuring your accounts are accurate and complete.",
       audience: "Small businesses and local traders needing regular bookkeeping support."
     },
@@ -40,6 +41,7 @@ const siteData = {
       number: "02",
       title: "GST Registration",
       tag: "Registration",
+      category: "GST",
       desc: "Complete support for obtaining a new GST registration and managing amendments to existing registrations. We guide you through documentation to ensure hassle-free regulatory compliance.",
       audience: "New businesses starting operations, or existing businesses formalizing their GST compliance."
     },
@@ -48,6 +50,7 @@ const siteData = {
       number: "03",
       title: "GST Return Filing",
       tag: "Compliance",
+      category: "GST",
       desc: "End-to-end preparation, verification, and filing of monthly and quarterly GST returns. We help monitor transaction details to ensure files are submitted accurately and on time.",
       audience: "GST-registered businesses requiring regular, ongoing compliance support."
     },
@@ -56,6 +59,7 @@ const siteData = {
       number: "04",
       title: "Firm / Company Registration",
       tag: "Registration",
+      category: "Other",
       desc: "Structured registration and incorporation services for new business entities. We handle the process details for partnership agreements, LLPs, and private limited companies.",
       audience: "Entrepreneurs and founders looking to legally register a new business entity."
     },
@@ -64,6 +68,7 @@ const siteData = {
       number: "05",
       title: "Income Tax Return Filing",
       tag: "Taxation",
+      category: "ITR",
       desc: "Accurate preparation and filing of annual income tax returns. We review deductions, income details, and capital gains to ensure fully compliant filings aligned with the latest rules.",
       audience: "Individuals, salaried professionals, partners, and businesses filing their yearly taxes."
     },
@@ -72,6 +77,7 @@ const siteData = {
       number: "06",
       title: "MSME / Udyam Registration",
       tag: "Registration",
+      category: "Other",
       desc: "Official registration support under the Udyam portal. This registration enables small and medium enterprises to become eligible for government schemes, subsidies, and credit benefits.",
       audience: "Small, micro, and medium enterprise owners seeking official MSME registration benefits."
     },
@@ -80,8 +86,18 @@ const siteData = {
       number: "07",
       title: "E-TDS Filing & Bank Loan Assistance",
       tag: "Compliance",
+      category: "Other",
       desc: "Quarterly submission of E-TDS returns for compliant tax deduction tracking. We also provide documentation assistance and project report support for bank loan applications.",
       audience: "Employers with TDS obligations, and businesses/individuals applying for credit lines."
+    },
+    {
+      id: "tax-statutory-audit",
+      number: "08",
+      title: "Tax & Statutory Audit",
+      tag: "Audit",
+      category: "Audit",
+      desc: "Comprehensive auditing services to ensure statutory compliance, accurate tax assessment under the Income Tax Act, and detailed internal financial reviews.",
+      audience: "Partnership firms, companies, and business owners requiring regulatory audit reports."
     }
   ],
   team: [

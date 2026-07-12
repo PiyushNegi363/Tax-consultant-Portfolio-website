@@ -51,6 +51,19 @@ body {
   overflow-x: clip;
 }
 
+/* Page fade transition rules */
+body.js-page-transition {
+  opacity: 0;
+  transition: opacity 0.22s ease-in-out;
+}
+body.js-page-transition.page-loaded {
+  opacity: 1;
+}
+body.js-page-transition.page-fade-out {
+  opacity: 0;
+}
+
+
 p {
   text-align: justify;
   text-justify: inter-word;
@@ -1134,3 +1147,106 @@ header.scrolled .nav-inner {
     padding: 0 16px;
   }
 }
+
+/* ==========================================================================
+   Print Stylesheet
+   ========================================================================== */
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+
+  #page-wrapper {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Hide interactive, dynamic, or non-printable elements */
+  header,
+  nav,
+  footer .footer-col-links,
+  .whatsapp-float,
+  .back-to-top,
+  .services-filter-container,
+  .services-cta-wrapper,
+  .cta-banner,
+  .form-card,
+  .map-container,
+  .burger,
+  .about-cta-link {
+    display: none !important;
+  }
+
+  /* Show critical contact details and service blocks clearly */
+  .services-list,
+  .contact-section,
+  .about-section {
+    padding: 20px 0 !important;
+  }
+
+  .services-stacked-list-wrapper,
+  .services-stacked-list {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .service-block {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    padding: 20px 0 !important;
+    border-bottom: 1px solid #cccccc !important;
+  }
+
+  /* Reset layout grids to full width blocks for print */
+  .contact-grid,
+  .about-grid,
+  .why-grid,
+  .trust-grid {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .contact-info,
+  .about-content,
+  .why-item,
+  .trust-item {
+    margin-bottom: 20px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .contact-info-row {
+    padding: 10px 0 !important;
+    border-bottom: 1px solid #cccccc !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Keep brand header visible on print */
+  .fallback-header {
+    display: block !important;
+    border-bottom: 2px solid #000000 !important;
+    padding-bottom: 10px !important;
+  }
+
+  .fallback-header .brand-logo {
+    filter: brightness(0) !important;
+  }
+
+  .fallback-header nav {
+    display: none !important;
+  }
+}
+

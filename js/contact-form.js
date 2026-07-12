@@ -221,6 +221,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 2000);
   });
 
+  // 3. Textarea Character Counter
+  const messageText = document.getElementById("messageText");
+  const charCounter = document.getElementById("messageCharCounter");
+  if (messageText && charCounter) {
+    const maxLen = messageText.getAttribute("maxlength") || 500;
+    const updateCounter = () => {
+      const len = messageText.value.length;
+      charCounter.textContent = `${len} / ${maxLen}`;
+      if (len >= maxLen) {
+        charCounter.classList.add("at-max");
+      } else {
+        charCounter.classList.remove("at-max");
+      }
+    };
+    messageText.addEventListener("input", updateCounter);
+    updateCounter(); // Initialize
+  }
+
   // Re-scan dynamic elements for scroll reveals
   if (typeof window.observeElements === "function") {
     window.observeElements(document.body);

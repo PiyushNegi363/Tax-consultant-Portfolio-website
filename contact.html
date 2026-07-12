@@ -171,7 +171,10 @@
 
               <!-- Message -->
               <div class="field-group" id="messageTextGroup">
-                <label for="messageText" class="field-label">Message</label>
+                <div class="field-label-row">
+                  <label for="messageText" class="field-label">Message</label>
+                  <span class="char-counter" id="messageCharCounter" aria-live="polite">0 / 500</span>
+                </div>
                 <textarea id="messageText" name="messageText" class="field-textarea" maxlength="500" placeholder="Tell us about your requirement (optional)"></textarea>
                 <span class="field-error" id="messageTextError" aria-live="polite"></span>
               </div>

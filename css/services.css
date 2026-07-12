@@ -19,8 +19,90 @@
   justify-content: center;
 }
 
-.services-stacked-list {
+.services-stacked-list-wrapper {
   max-width: 740px; /* Constrain text content for optimal reading width */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.services-filter-container {
+  width: 100%;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 20px;
+  margin-bottom: 12px;
+}
+
+.services-filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start;
+}
+
+.filter-tab {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--color-ink);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color var(--transition-speed) ease,
+              color var(--transition-speed) ease,
+              border-color var(--transition-speed) ease,
+              box-shadow var(--transition-speed) ease,
+              transform var(--transition-speed) ease;
+}
+
+.filter-tab:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background-color: rgba(184, 92, 56, 0.04);
+}
+
+.filter-tab.active {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+  border-color: var(--color-accent);
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(184, 92, 56, 0.18);
+  transform: translateY(-1px);
+}
+
+.filter-tab:active {
+  transform: translateY(1px);
+}
+
+.no-services-message {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-secondary);
+  text-align: center;
+  padding: 48px 0;
+  margin: 0;
+}
+
+/* Tab Filter entrance animation */
+.service-block-animate {
+  animation: block-fade-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes block-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.services-stacked-list {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -113,6 +195,21 @@
 
 /* ── Responsive: mobile ── */
 @media (max-width: 480px) {
+  .services-filter-container {
+    padding-bottom: 16px;
+    margin-bottom: 8px;
+  }
+
+  .services-filter-tabs {
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .filter-tab {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
   .services-list {
     padding: 48px 0;
   }

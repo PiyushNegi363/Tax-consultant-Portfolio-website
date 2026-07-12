@@ -37,12 +37,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const mapIframe = document.getElementById("contact-map-iframe");
     if (mapIframe) {
-      mapIframe.src = `https://maps.google.com/maps?q=${encodeURIComponent(siteData.contact.address)}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+      mapIframe.src = `https://maps.google.com/maps?q=${encodeURIComponent(siteData.contact.addressMapQuery)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
     }
 
     const directionsLink = document.getElementById("contact-map-directions-link");
     if (directionsLink) {
-      directionsLink.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(siteData.contact.address)}`;
+      directionsLink.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(siteData.contact.addressMapQuery)}`;
     }
 
     // Team Contact cards row

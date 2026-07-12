@@ -48,6 +48,30 @@
             </a>
           </div>
         </div>
+
+        <!-- Checklist Card Helper -->
+        <div class="hero-aside">
+          <div class="checklist-card">
+            <h2 class="checklist-card-title">Document Checklist Helper</h2>
+            <p class="checklist-card-subtitle">Keep these documents ready for a smooth filing process.</p>
+            
+            <div class="checklist-tabs" role="tablist" aria-label="Document Checklists">
+              <button class="checklist-tab-btn active" role="tab" aria-selected="true" aria-controls="checklist-panel" id="itr-tab" data-tab="itr">ITR Filing</button>
+              <button class="checklist-tab-btn" role="tab" aria-selected="false" aria-controls="checklist-panel" id="gst-tab" data-tab="gst">GST Registration</button>
+              <button class="checklist-tab-btn" role="tab" aria-selected="false" aria-controls="checklist-panel" id="company-tab" data-tab="company">Company Reg.</button>
+            </div>
+            
+            <div class="checklist-panels">
+              <div class="checklist-panel active" id="checklist-panel" role="tabpanel" aria-labelledby="itr-tab">
+                <!-- Dynamically populated checklist items -->
+              </div>
+            </div>
+            
+            <div class="checklist-footer">
+              <span class="checklist-footer-note">All documents are processed securely in compliance with ICAI guidelines.</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 

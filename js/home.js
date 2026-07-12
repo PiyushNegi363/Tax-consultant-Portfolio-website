@@ -100,7 +100,83 @@ document.addEventListener("DOMContentLoaded", () => {
     aboutBio.textContent = siteData.principal.bio[0];
   }
 
-  // 4. Re-scan dynamic elements for scroll reveals
+  // 4. Interactive Document Checklist Helper
+  const tabButtons = document.querySelectorAll(".checklist-tab-btn");
+  const panelContainer = document.querySelector("#checklist-panel");
+
+  function renderChecklist(tabId) {
+    if (!panelContainer || !siteData.checklists || !siteData.checklists[tabId]) return;
+    const checklistData = siteData.checklists[tabId];
+    
+    // Build checkmark icons and list items with index for staggered animation
+    const listHtml = `
+      <ul class="checklist-list">
+        ${checklistData.docs.map((doc, idx) => `
+          <li class="checklist-item" style="--item-index: ${idx};">
+            <svg class="checklist-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>${doc}</span>
+          </li>
+        `).join('')}
+      </ul>
+    `;
+    
+    panelContainer.innerHTML = listHtml;
+    
+    // Trigger CSS fade-in animation
+    panelContainer.classList.remove("animating");
+    void panelContainer.offsetWidth; // force layout reflow
+    panelContainer.classList.add("animating");
+  }
+
+  if (tabButtons.length > 0 && panelContainer) {
+    // Initial Render (default active tab is ITR) with a slight delay so visual loading is visible
+    setTimeout(() => {
+      renderChecklist("itr");
+    }, 200);
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        // Remove active state from current tabs
+        tabButtons.forEach(b => {
+          b.classList.remove("active");
+          b.setAttribute("aria-selected", "false");
+        });
+        
+        // Add active state to clicked tab
+        btn.classList.add("active");
+        btn.setAttribute("aria-selected", "true");
+        
+        // Update panel ARIA label
+        panelContainer.setAttribute("aria-labelledby", btn.id);
+        
+        // Render document checklist
+        const tabId = btn.getAttribute("data-tab");
+        renderChecklist(tabId);
+      });
+      
+      // WAI-ARIA tab navigation
+      btn.addEventListener("keydown", (e) => {
+        const tabList = Array.from(tabButtons);
+        const index = tabList.indexOf(btn);
+        let nextBtn;
+        
+        if (e.key === "ArrowRight") {
+          nextBtn = tabList[(index + 1) % tabList.length];
+        } else if (e.key === "ArrowLeft") {
+          nextBtn = tabList[(index - 1 + tabList.length) % tabList.length];
+        }
+        
+        if (nextBtn) {
+          nextBtn.focus();
+          nextBtn.click();
+        }
+      });
+    });
+  }
+
+  // 5. Re-scan dynamic elements for scroll reveals
   if (typeof window.observeElements === "function") {
     window.observeElements(document.body);
   }

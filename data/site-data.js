@@ -106,16 +106,51 @@ const siteData = {
       role: "Associate",
       phone: "+91 84778 65564",
       tel: "tel:+918477865564",
-      avatarInitials: "AN"
+      avatarInitials: "AN",
+      focus: "GST Registration, Return Filing & Compliance",
+      experience: "5+ years in tax compliance",
+      bio: "Ankit specializes in GST compliance and registrations. He assists clients in navigating the GST portal, filing monthly and quarterly returns, and resolving registration queries for local businesses."
     },
     {
       name: "Manoj Tiwari",
       role: "Associate",
       phone: "+91 95680 21752",
       tel: "tel:+919568021752",
-      avatarInitials: "MT"
+      avatarInitials: "MT",
+      focus: "Accounts, Bookkeeping & E-TDS Filing",
+      experience: "6+ years in accounting services",
+      bio: "Manoj manages accounting and bookkeeping for local traders and small businesses. He is experienced in preparing financial statements, handling payroll accounts, and managing e-TDS return filing."
     }
-  ]
+  ],
+  checklists: {
+    itr: {
+      title: "Income Tax (ITR)",
+      docs: [
+        "PAN Card & Aadhaar Card",
+        "Form 16 (from employer, if salaried)",
+        "Bank Account Statements (for the financial year)",
+        "Investment proofs (80C, 80D, etc. to claim deductions)"
+      ]
+    },
+    gst: {
+      title: "GST Registration",
+      docs: [
+        "PAN Card of the Business / Proprietor",
+        "Aadhaar Card of the Proprietor",
+        "Proof of Business Address (Rent Agreement / Electricity Bill)",
+        "Bank details (Cancelled Cheque / Passbook)"
+      ]
+    },
+    company: {
+      title: "Company Registration",
+      docs: [
+        "PAN Card & Aadhaar of all Directors",
+        "Proposed Company Names (1-2 choices)",
+        "Proof of Registered Office Address",
+        "Digital Signature Certificate (DSC) request details"
+      ]
+    }
+  }
 };
 
 // Backwards compatibility wrappers

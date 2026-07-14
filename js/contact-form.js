@@ -55,11 +55,19 @@ document.addEventListener("DOMContentLoaded", () => {
         card.innerHTML = `
           <span class="team-contact-name">${member.name}</span>
           <span class="team-contact-role">${member.role}</span>
+          ${member.focus ? `<span class="team-contact-focus">${member.focus}</span>` : ""}
           <a href="${member.tel}" class="team-contact-phone">${member.phone}</a>
         `;
         teamContactGrid.appendChild(card);
       });
     }
+  }
+
+  // Initialize EmailJS
+  if (typeof emailjs !== "undefined" && typeof siteData !== "undefined" && siteData.emailjs && siteData.emailjs.publicKey !== "YOUR_PUBLIC_KEY") {
+    emailjs.init({
+      publicKey: siteData.emailjs.publicKey
+    });
   }
 
   // 2. Enquiry Form Logic
@@ -180,45 +188,116 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Build WhatsApp message
     const name = document.getElementById("fullName").value.trim();
     const phone = document.getElementById("phoneNumber").value.trim();
     const email = document.getElementById("emailAddress").value.trim();
     const service = serviceSelect.value;
     const message = document.getElementById("messageText").value.trim();
 
-    let waMessage = `New enquiry from the website:\n`;
-    waMessage += `Name: ${name}\n`;
-    waMessage += `Phone: ${phone}\n`;
-    if (email) waMessage += `Email: ${email}\n`;
-    waMessage += `Service: ${service}\n`;
-    if (message) waMessage += `Message: ${message}`;
+    // Prepare EmailJS Template parameters
+    const templateParams = {
+      from_name: name,
+      from_phone: phone,
+      from_email: email || "Not provided",
+      service_required: service,
+      message: message || "No message details provided."
+    };
 
-    const encodedMsg = encodeURIComponent(waMessage);
-    
-    // Retrieve phone dynamically
-    const rawPhone = (typeof siteData !== "undefined") ? siteData.contact.whatsapp : "+91 96908 22761";
-    const cleanPhone = rawPhone.replace(/\D/g, "");
-    const waUrl = `https://wa.me/${cleanPhone}?text=${encodedMsg}`;
-
-    // Temporarily disable submit button
+    // Temporarily disable submit button and show loading state
     submitBtn.disabled = true;
     submitBtn.classList.add("loading");
+    const btnText = submitBtn.querySelector("span");
+    const originalText = btnText ? btnText.textContent : "Send Message";
+    if (btnText) btnText.textContent = "Sending...";
 
-    // Open in new tab
-    window.open(waUrl, "_blank", "noopener");
 
-    // Display on-page success
-    if (formStatus) {
-      formStatus.textContent = "Thank you! Your enquiry has been compiled. WhatsApp has been opened in a new tab to complete your message.";
-      formStatus.className = "form-status ok";
+    // Check if EmailJS keys are configured
+    const isConfigured = (
+      typeof emailjs !== "undefined" &&
+      typeof siteData !== "undefined" &&
+      siteData.emailjs &&
+      siteData.emailjs.publicKey &&
+      siteData.emailjs.publicKey !== "YOUR_PUBLIC_KEY" &&
+      siteData.emailjs.serviceId !== "YOUR_SERVICE_ID" &&
+      siteData.emailjs.adminTemplateId !== "YOUR_TEMPLATE_ID"
+    );
+
+    if (!isConfigured) {
+      console.warn("EmailJS is not configured. Falling back to default mailto link submission.");
+      if (formStatus) {
+        formStatus.textContent = "Developer Notice: Please configure your EmailJS API keys in data/site-data.js. Opening fallback mailto link...";
+        formStatus.className = "form-status ok";
+      }
+      form.submit();
+      
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove("loading");
+        if (btnText) btnText.textContent = originalText;
+      }, 2000);
+      return;
     }
 
-    // Re-enable button
-    setTimeout(() => {
-      submitBtn.disabled = false;
-      submitBtn.classList.remove("loading");
-    }, 2000);
+    // 1. Send Admin Notification Email
+    const adminPromise = emailjs.send(siteData.emailjs.serviceId, siteData.emailjs.adminTemplateId, templateParams);
+
+    // 2. Send Client Auto-Reply Email (if clientTemplateId is provided and client provided an email address)
+    const clientEmail = email.trim();
+    const hasClientTemplate = (
+      siteData.emailjs.clientTemplateId &&
+      siteData.emailjs.clientTemplateId !== "YOUR_TEMPLATE_ID" &&
+      siteData.emailjs.clientTemplateId !== ""
+    );
+
+    const promises = [adminPromise];
+
+    if (clientEmail && hasClientTemplate) {
+      const clientPromise = emailjs.send(siteData.emailjs.serviceId, siteData.emailjs.clientTemplateId, templateParams);
+      promises.push(clientPromise);
+    }
+
+    // 3. Post to Google Sheets Web App (if configured)
+    const sheetUrl = (typeof siteData !== "undefined") ? siteData.googleSheetsUrl : "";
+    const hasSheetUrl = sheetUrl && sheetUrl !== "YOUR_GOOGLE_SHEETS_WEB_APP_URL" && sheetUrl !== "";
+
+    if (hasSheetUrl) {
+      const sheetPromise = fetch(sheetUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(templateParams)
+      }).catch(err => console.error("Google Sheets logging failed:", err));
+      
+      promises.push(sheetPromise);
+    }
+
+    Promise.all(promises)
+      .then(() => {
+        if (formStatus) {
+          formStatus.textContent = "Thank you! Your enquiry has been sent successfully. We will get back to you shortly.";
+          formStatus.className = "form-status ok";
+        }
+        showToast("Message sent successfully!", "success");
+        form.reset();
+        // Reset character counter if it exists
+        const charCounter = document.getElementById("messageCharCounter");
+        if (charCounter) charCounter.textContent = "0 / 500";
+      })
+      .catch((err) => {
+        console.error("EmailJS Error:", err);
+        if (formStatus) {
+          formStatus.textContent = "Unable to send your message. Please try again later or contact us directly via Phone / WhatsApp.";
+          formStatus.className = "form-status error";
+        }
+        showToast("Failed to send message. Please try again.", "error");
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove("loading");
+        if (btnText) btnText.textContent = originalText;
+      });
   });
 
   // 3. Textarea Character Counter
@@ -237,6 +316,46 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     messageText.addEventListener("input", updateCounter);
     updateCounter(); // Initialize
+  }
+
+  // Toast Notification System
+  function showToast(message, type = "success") {
+    let container = document.querySelector(".toast-container");
+    if (!container) {
+      container = document.createElement("div");
+      container.className = "toast-container";
+      document.body.appendChild(container);
+    }
+
+    const toast = document.createElement("div");
+    toast.className = `toast ${type}`;
+    
+    const iconSvg = type === "success" 
+      ? `<svg class="toast-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>`
+      : `<svg class="toast-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
+
+    toast.innerHTML = `
+      ${iconSvg}
+      <span class="toast-message">${message}</span>
+    `;
+
+    container.appendChild(toast);
+
+    // Trigger slide-down transition
+    setTimeout(() => {
+      toast.classList.add("show");
+    }, 10);
+
+    // Auto dismiss toast after 4s
+    setTimeout(() => {
+      toast.classList.remove("show");
+      setTimeout(() => {
+        toast.remove();
+        if (container.children.length === 0) {
+          container.remove();
+        }
+      }, 400);
+    }, 4000);
   }
 
   // Re-scan dynamic elements for scroll reveals

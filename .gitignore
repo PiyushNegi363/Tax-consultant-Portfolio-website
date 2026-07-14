@@ -9,5 +9,8 @@ desktop.ini
 
 # Product Requirement Documents
 PRD-negi-tax-consultant.md
-PRD-interaction-animation
+PRD-interaction-animation.md
 .agents/
+
+# Local credentials configuration file
+data/config.js

@@ -57,6 +57,58 @@
   display: block;
 }
 
+.ca-pillars-card {
+  margin-top: 24px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 24px;
+  max-width: 280px;
+  box-sizing: border-box;
+}
+
+.ca-pillars-title {
+  font-family: var(--font-headings);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 0;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 8px;
+}
+
+.ca-pillars-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ca-pillars-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pillar-label {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.pillar-desc {
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  color: var(--color-secondary);
+  line-height: 1.4;
+}
+
 .ca-avatar-initials {
   font-family: var(--font-headings);
   font-size: 3rem;
@@ -159,13 +211,20 @@
 
   .ca-profile-visual {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
   }
 
   .ca-profile-avatar,
   .ca-profile-photo {
     max-width: 220px;
     aspect-ratio: 1;
+  }
+
+  .ca-pillars-card {
+    max-width: 450px;
+    width: 100%;
+    margin-top: 24px;
   }
 
   .ca-avatar-initials {
@@ -263,10 +322,8 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  /* Restrained hover — no cursor:pointer (cards are not clickable)
-     Hover treatment: translateY(-3px) + shadow.
-     Decision confirmed 2026-07-11 (via PRD-team-contact-row-section.md §8 Q3),
-     also closes PRD-team-section.md §8 Q2 */
+  cursor: pointer;
+  /* Hover treatment: translateY(-3px) + shadow. */
   transition: transform var(--transition-speed) ease,
               box-shadow var(--transition-speed) ease;
 }
@@ -274,6 +331,31 @@
 .team-member-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 24px rgba(44, 54, 57, 0.10);
+}
+
+.team-member-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-top: 16px;
+  transition: color var(--transition-speed) ease;
+}
+
+.team-member-action svg {
+  transition: transform var(--transition-speed) ease;
+  flex-shrink: 0;
+}
+
+.team-member-card:hover .team-member-action {
+  color: var(--color-secondary);
+}
+
+.team-member-card:hover .team-member-action svg {
+  transform: translateX(4px);
 }
 
 /* ── Circular avatar ── */
@@ -596,6 +678,10 @@
 }
 
 /* Native dialog styles */
+dialog:not([open]) {
+  display: none !important;
+}
+
 .team-modal {
   border: none;
   background: transparent;
@@ -797,6 +883,55 @@
   transition: border-color var(--transition-speed) ease, background-color var(--transition-speed) ease, transform 0.15s ease;
   width: 100%;
   cursor: pointer;
+}
+
+.btn-modal-call:hover {
+  background-color: var(--color-bg);
+  border-color: var(--color-secondary);
+}
+
+/* Copy Phone details section styling */
+.modal-phone-copy-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 8px 16px;
+  width: fit-content;
+}
+
+.modal-phone-text {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.btn-copy-phone {
+  background-color: transparent;
+  border: none;
+  color: var(--color-accent);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+.btn-copy-phone:hover {
+  background-color: var(--color-border);
+}
+
+.btn-copy-phone.copied {
+  color: #3E7C5C; /* Success green */
 }
 
 .btn-modal-call:hover {

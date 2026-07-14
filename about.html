@@ -61,6 +61,24 @@
         <!-- ── Visual column ── -->
         <div class="ca-profile-visual reveal reveal-left">
           <img src="assets/Images/character.jpg" alt="CA N.S. Negi, Proprietor — Negi Tax Consultant" class="ca-profile-photo">
+          
+          <div class="ca-pillars-card">
+            <h3 class="ca-pillars-title">Our Practice Pillars</h3>
+            <ul class="ca-pillars-list">
+              <li>
+                <span class="pillar-label">Personal Accountability</span>
+                <span class="pillar-desc">You consult directly with CA N.S. Negi for all files, compliance reviews, and advisory.</span>
+              </li>
+              <li>
+                <span class="pillar-label">Deadline Integrity</span>
+                <span class="pillar-desc">Systematic tracking of GST and Income Tax deadlines to prevent late filings and penalties.</span>
+              </li>
+              <li>
+                <span class="pillar-label">Local Expertise</span>
+                <span class="pillar-desc">Deep familiarity with Haldwani, Nainital, and the Kumaon region business environment.</span>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <!-- ── Content column ── -->
@@ -140,6 +158,13 @@
               PLACEHOLDER: Uncomment and fill in when area-of-focus is confirmed by N.S. Negi.
               <p class="team-member-focus">GST Filings &amp; Returns</p>
             -->
+            <span class="team-member-action">
+              View Profile
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </span>
           </div>
 
           <!-- Card: Manoj Tiwari -->
@@ -157,6 +182,13 @@
               PLACEHOLDER: Uncomment and fill in when area-of-focus is confirmed by N.S. Negi.
               <p class="team-member-focus">Accounts &amp; Bookkeeping</p>
             -->
+            <span class="team-member-action">
+              View Profile
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </span>
           </div>
 
         </div><!-- /.team-grid -->
@@ -306,11 +338,11 @@
       <div class="modal-body">
         <div class="modal-left-col">
           <div class="modal-avatar" id="modal-avatar">
-            <span class="modal-avatar-initials" id="modal-avatar-initials">AN</span>
+            <span class="modal-avatar-initials" id="modal-avatar-initials"></span>
           </div>
-          <h2 class="modal-name" id="modal-name">Ankit Negi</h2>
-          <p class="modal-role" id="modal-role">Associate</p>
-          <p class="modal-exp" id="modal-experience">5+ years in tax compliance</p>
+          <h2 class="modal-name" id="modal-name"></h2>
+          <p class="modal-role" id="modal-role"></p>
+          <p class="modal-exp" id="modal-experience"></p>
           <div class="modal-contact">
             <a href="#" class="btn-modal-whatsapp" id="modal-whatsapp-link" target="_blank" rel="noopener">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
@@ -329,11 +361,24 @@
         <div class="modal-right-col">
           <div class="modal-detail-section">
             <span class="modal-section-title">Area of Focus</span>
-            <p class="modal-focus-text" id="modal-focus">GST Registration, Return Filing & Compliance</p>
+            <p class="modal-focus-text" id="modal-focus"></p>
           </div>
           <div class="modal-detail-section">
             <span class="modal-section-title">Biography</span>
-            <p class="modal-bio-text" id="modal-bio">Ankit specializes in GST compliance and registrations...</p>
+            <p class="modal-bio-text" id="modal-bio"></p>
+          </div>
+          <div class="modal-detail-section modal-contact-section">
+            <span class="modal-section-title">Direct Contact</span>
+            <div class="modal-phone-copy-wrapper">
+              <span class="modal-phone-text" id="modal-phone-text"></span>
+              <button type="button" class="btn-copy-phone" id="modal-copy-phone-btn" title="Copy to clipboard">
+                <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span class="copy-status-text">Copy</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -341,6 +386,7 @@
   </dialog>
 
   <!-- Runtime Component Injection & Behavior -->
+  <script src="data/config.js"></script>
   <script src="data/site-data.js"></script>
   <script src="js/components.js"></script>
   <script src="js/nav.js"></script>

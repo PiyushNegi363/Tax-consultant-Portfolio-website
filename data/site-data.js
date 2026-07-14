@@ -150,7 +150,14 @@ const siteData = {
         "Digital Signature Certificate (DSC) request details"
       ]
     }
-  }
+  },
+  emailjs: {
+    serviceId: typeof config !== "undefined" ? config.emailjs.serviceId : "YOUR_SERVICE_ID",         // Set service ID from config or fallback
+    adminTemplateId: typeof config !== "undefined" ? config.emailjs.adminTemplateId : "YOUR_TEMPLATE_ID",  // Set admin template ID
+    clientTemplateId: typeof config !== "undefined" ? config.emailjs.clientTemplateId : "YOUR_TEMPLATE_ID", // Set client template ID
+    publicKey: typeof config !== "undefined" ? config.emailjs.publicKey : "YOUR_PUBLIC_KEY"          // Set public key
+  },
+  googleSheetsUrl: typeof config !== "undefined" ? config.googleSheetsUrl : "YOUR_GOOGLE_SHEETS_WEB_APP_URL" // Set Sheets URL
 };
 
 // Backwards compatibility wrappers

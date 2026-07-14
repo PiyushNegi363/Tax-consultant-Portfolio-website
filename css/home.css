@@ -1,6 +1,29 @@
 /* ==========================================================================
    Hero Section Styling
    ========================================================================== */
+/* Entrance Keyframes */
+@keyframes hero-slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes hero-slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .hero {
   background-color: var(--color-bg);
   background: radial-gradient(circle at 80% 20%, #FFFFFF 0%, var(--color-bg) 70%);
@@ -28,6 +51,8 @@
   gap: 24px;
   border-left: 2px solid var(--color-accent);
   padding-left: 32px;
+  animation: hero-slide-right 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
 }
 
 .hero-eyebrow {
@@ -69,6 +94,9 @@
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  animation: hero-slide-left 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.15s;
+  opacity: 0;
 }
 
 .checklist-card {

@@ -77,110 +77,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const isUrlConfigured = sheetUrl && sheetUrl !== "YOUR_GOOGLE_SHEETS_WEB_APP_URL" && sheetUrl !== "";
     
     if (!isUrlConfigured) {
-      // Mock / Preview Mode using test@123 key
       setTimeout(() => {
-        if (password === "test@123") {
-          sessionStorage.setItem("admin_session_token", password);
-          
-          loginSection.classList.add("hidden");
-          dashboardSection.classList.remove("hidden");
-          logoutBtn.classList.remove("hidden");
-
-          // High fidelity mock data for local review
-          enquiriesData = [
-            {
-              timestamp: new Date(Date.now() - 3600000 * 2).toISOString(),
-              from_name: "Rajesh Kumar",
-              from_phone: "9876543210",
-              from_email: "rajesh.kumar@gmail.com",
-              service_required: "Income Tax Return Filing",
-              message: "Hi, I need assistance in filing my ITR-3 for my retail business in Haldwani. Please let me know what documents are required."
-            },
-            {
-              timestamp: new Date(Date.now() - 3600000 * 5).toISOString(),
-              from_name: "Sunita Negi",
-              from_phone: "9412087654",
-              from_email: "sunita.negi12@gmail.com",
-              service_required: "Income Tax Return Filing",
-              message: "I am a salaried employee in state government. Need help filing my ITR-1 for FY 2025-26. I have my Form 16 ready."
-            },
-            {
-              timestamp: new Date(Date.now() - 3600000 * 24).toISOString(),
-              from_name: "Amit Sharma",
-              from_phone: "8765432109",
-              from_email: "amit.sharma@yahoo.com",
-              service_required: "GST Registration",
-              message: "I am starting a new wholesale shop near Block Office and need a new GST registration. What is the fee and timeline?"
-            },
-            {
-              timestamp: new Date(Date.now() - 3600000 * 32).toISOString(),
-              from_name: "Harish Tiwari",
-              from_phone: "7055998877",
-              from_email: "tiwari.trading@rediffmail.com",
-              service_required: "GST Return Filing",
-              message: "Looking for a tax professional to handle my monthly GSTR-1 and GSTR-3B filings regularly. Please contact me."
-            },
-            {
-              timestamp: new Date(Date.now() - 3600000 * 48).toISOString(),
-              from_name: "Priya Joshi",
-              from_phone: "7654321098",
-              from_email: "",
-              service_required: "Firm / Company Registration",
-              message: "We want to register a Private Limited Company for our tourist agency business. We have 2 directors ready with documents."
-            },
-            {
-              timestamp: new Date(Date.now() - 3600000 * 56).toISOString(),
-              from_name: "Deepa Arya",
-              from_phone: "9927654321",
-              from_email: "deepa.arya.crafts@gmail.com",
-              service_required: "MSME / Udyam Registration",
-              message: "I run a small handloom business at home. I want to apply for MSME / Udyam registration to get bank loan benefits."
-            },
-            {
-              timestamp: new Date(Date.now() - 3600000 * 72).toISOString(),
-              from_name: "Vikram Singh",
-              from_phone: "9568021752",
-              from_email: "vikram.tax@outlook.com",
-              service_required: "Other / Not sure",
-              message: "Need consultancy regarding capital gains tax on selling ancestral land in Nainital."
-            },
-            {
-              timestamp: new Date(Date.now() - 3600000 * 96).toISOString(),
-              from_name: "Ramesh Chandra",
-              from_phone: "8126049581",
-              from_email: "ramesh.chandra@outlook.com",
-              service_required: "Accounts Book Keeping",
-              message: "Need accounting support for a local school's annual audit. We have digital spreadsheets for all entries."
-            },
-            {
-              timestamp: new Date(Date.now() - 3600000 * 120).toISOString(),
-              from_name: "Neha Bora",
-              from_phone: "9634012345",
-              from_email: "nehabora@live.in",
-              service_required: "GST Return Filing",
-              message: "Urgent help needed with GST annual return GSTR-9. The deadline is approaching. Please callback."
-            },
-            {
-              timestamp: new Date(Date.now() - 3600000 * 150).toISOString(),
-              from_name: "Sanjay Rawat",
-              from_phone: "9758039281",
-              from_email: "",
-              service_required: "Firm / Company Registration",
-              message: "We want to register a Partnership firm for a new hardware store in Kathgodam. Need partnership deed drafting."
-            }
-          ];
-          
-          filteredData = [...enquiriesData];
-          initializeFilters();
-          calculateMetrics();
-          renderTable();
-        } else {
-          showLoginError("Invalid access key. Use 'test@123' for preview mode.");
-          triggerLoginShake();
-          sessionStorage.removeItem("admin_session_token");
-        }
+        showLoginError("Database URL is not configured. Please add your googleSheetsUrl inside data/config.js.");
+        triggerLoginShake();
         resetLoginButton();
-      }, 800);
+      }, 500);
       return;
     }
 
@@ -203,6 +104,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
           // Initialize Dashboard
           enquiriesData = response.data || [];
+          // Standardize Google Sheets keys to match client rendering keys
+          enquiriesData.forEach(item => {
+            item.from_name = item.from_name || item.name || "";
+            item.from_phone = item.from_phone || item.phone || "";
+            item.from_email = item.from_email || item.email || "";
+            item.service_required = item.service_required || item.service || "";
+          });
           // Sort reverse chronological (newest first) by timestamp column
           enquiriesData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
           

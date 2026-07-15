@@ -212,7 +212,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // Check if EmailJS keys are configured
-    const isConfigured = (
+    // Check what services are configured
+    const hasEmailJS = (
       typeof emailjs !== "undefined" &&
       typeof siteData !== "undefined" &&
       siteData.emailjs &&
@@ -222,10 +223,14 @@ document.addEventListener("DOMContentLoaded", () => {
       siteData.emailjs.adminTemplateId !== "YOUR_TEMPLATE_ID"
     );
 
-    if (!isConfigured) {
-      console.warn("EmailJS is not configured. Falling back to default mailto link submission.");
+    const sheetUrl = (typeof siteData !== "undefined") ? siteData.googleSheetsUrl : "";
+    const hasSheetUrl = sheetUrl && sheetUrl !== "YOUR_GOOGLE_SHEETS_WEB_APP_URL" && sheetUrl !== "";
+
+    // If neither is configured, do the fallback mailto submit
+    if (!hasEmailJS && !hasSheetUrl) {
+      console.warn("Neither EmailJS nor Google Sheets is configured. Falling back to default mailto submission.");
       if (formStatus) {
-        formStatus.textContent = "Developer Notice: Please configure your EmailJS API keys in data/site-data.js. Opening fallback mailto link...";
+        formStatus.textContent = "Developer Notice: Please configure your EmailJS API keys or Google Sheets URL in data/config.js. Opening fallback mailto link...";
         formStatus.className = "form-status ok";
       }
       form.submit();
@@ -238,28 +243,26 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // 1. Send Admin Notification Email
-    const adminPromise = emailjs.send(siteData.emailjs.serviceId, siteData.emailjs.adminTemplateId, templateParams);
+    const promises = [];
 
-    // 2. Send Client Auto-Reply Email (if clientTemplateId is provided and client provided an email address)
-    const clientEmail = email.trim();
-    const hasClientTemplate = (
-      siteData.emailjs.clientTemplateId &&
-      siteData.emailjs.clientTemplateId !== "YOUR_TEMPLATE_ID" &&
-      siteData.emailjs.clientTemplateId !== ""
-    );
+    // 1. Send Email notifications via EmailJS if configured
+    if (hasEmailJS) {
+      const adminPromise = emailjs.send(siteData.emailjs.serviceId, siteData.emailjs.adminTemplateId, templateParams);
+      promises.push(adminPromise);
 
-    const promises = [adminPromise];
-
-    if (clientEmail && hasClientTemplate) {
-      const clientPromise = emailjs.send(siteData.emailjs.serviceId, siteData.emailjs.clientTemplateId, templateParams);
-      promises.push(clientPromise);
+      const clientEmail = email.trim();
+      const hasClientTemplate = (
+        siteData.emailjs.clientTemplateId &&
+        siteData.emailjs.clientTemplateId !== "YOUR_TEMPLATE_ID" &&
+        siteData.emailjs.clientTemplateId !== ""
+      );
+      if (clientEmail && hasClientTemplate) {
+        const clientPromise = emailjs.send(siteData.emailjs.serviceId, siteData.emailjs.clientTemplateId, templateParams);
+        promises.push(clientPromise);
+      }
     }
 
-    // 3. Post to Google Sheets Web App (if configured)
-    const sheetUrl = (typeof siteData !== "undefined") ? siteData.googleSheetsUrl : "";
-    const hasSheetUrl = sheetUrl && sheetUrl !== "YOUR_GOOGLE_SHEETS_WEB_APP_URL" && sheetUrl !== "";
-
+    // 2. Post to Google Sheets Web App if configured
     if (hasSheetUrl) {
       const sheetPromise = fetch(sheetUrl, {
         method: "POST",
@@ -267,7 +270,13 @@ document.addEventListener("DOMContentLoaded", () => {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(templateParams)
+        body: JSON.stringify({
+          name: name,
+          phone: phone,
+          email: email,
+          service: service,
+          message: message
+        })
       }).catch(err => console.error("Google Sheets logging failed:", err));
       
       promises.push(sheetPromise);
@@ -286,7 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (charCounter) charCounter.textContent = "0 / 500";
       })
       .catch((err) => {
-        console.error("EmailJS Error:", err);
+        console.error("Submission Error:", err);
         if (formStatus) {
           formStatus.textContent = "Unable to send your message. Please try again later or contact us directly via Phone / WhatsApp.";
           formStatus.className = "form-status error";

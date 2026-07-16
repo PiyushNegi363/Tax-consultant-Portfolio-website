@@ -1,6 +1,6 @@
 # Negi Tax Consultant — Portfolio & Admin Dashboard
 
-A premium, modern, and highly responsive portfolio website for **Negi Tax Consultant**, a Chartered Accountancy firm in Haldwani, Nainital, Uttarakhand. The site features client enquiry management via a serverless Google Sheets database, real-time EmailJS notifications, and an automated Dialogflow AI chatbot.
+A premium, modern, and highly responsive portfolio website for **Negi Tax Consultant** in Haldwani, Nainital, Uttarakhand. The site features client enquiry management via a serverless Google Sheets database and real-time EmailJS notifications.
 
 ---
 

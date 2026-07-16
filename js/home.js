@@ -32,33 +32,28 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 1. Populate Trust Strip with animated counters
-  const trustYearsVal  = document.querySelector("#trust-years-val");
-  const trustTeamVal   = document.querySelector("#trust-team-val");
-  const trustMemberVal = document.querySelector("#trust-member-val");
+  const trustYearsVal   = document.querySelector("#trust-years-val");
+  const trustTeamVal    = document.querySelector("#trust-team-val");
+  const trustClientsVal = document.querySelector("#trust-clients-val");
 
   // Resolve target values from siteData
-  const yearsTarget = parseInt(siteData.principal.experience, 10) || 18;
-  const teamTarget  = 1 + siteData.team.length;
-
-  // Set non-numeric FCA label immediately (no counter)
-  if (trustMemberVal) {
-    const qual  = siteData.principal.qualification;
-    const match = qual.match(/\b(FCA|ACA)\b/);
-    trustMemberVal.textContent = match ? match[0] : "FCA";
-  }
+  const yearsTarget   = parseInt(siteData.principal.experience, 10) || 20;
+  const teamTarget    = 1 + siteData.team.length;
+  const clientsTarget = 1000;
 
   // Use IntersectionObserver to start counters the moment the section enters view
   const trustSection = document.querySelector(".trust-strip");
   let countersStarted = false;
 
-  if (trustSection && (trustYearsVal || trustTeamVal)) {
+  if (trustSection && (trustYearsVal || trustTeamVal || trustClientsVal)) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting && !countersStarted) {
             countersStarted = true;
-            if (trustYearsVal) animateCounter(trustYearsVal, yearsTarget, "+", 1800);
-            if (trustTeamVal)  animateCounter(trustTeamVal,  teamTarget,  "",  1200);
+            if (trustYearsVal)   animateCounter(trustYearsVal,   yearsTarget,   "+", 1800);
+            if (trustTeamVal)    animateCounter(trustTeamVal,    teamTarget,    "",  1200);
+            if (trustClientsVal) animateCounter(trustClientsVal, clientsTarget, "+", 1800);
             observer.disconnect(); // fire once only
           }
         });
@@ -68,8 +63,9 @@ document.addEventListener("DOMContentLoaded", () => {
     observer.observe(trustSection);
   } else {
     // Fallback: set values immediately if observer not available
-    if (trustYearsVal) trustYearsVal.textContent = yearsTarget + "+";
-    if (trustTeamVal)  trustTeamVal.textContent  = teamTarget;
+    if (trustYearsVal)   trustYearsVal.textContent   = yearsTarget + "+";
+    if (trustTeamVal)    trustTeamVal.textContent    = teamTarget;
+    if (trustClientsVal) trustClientsVal.textContent = clientsTarget + "+";
   }
 
   // 2. Populate Services Preview

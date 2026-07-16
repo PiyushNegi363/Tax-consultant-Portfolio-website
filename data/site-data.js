@@ -2,16 +2,14 @@ const siteData = {
   firmName: "Negi Tax Consultant",
   principal: {
     name: "N.S. Negi",
-    role: "Proprietor & Chartered Accountant",
-    qualification: "B.Com, FCA (Fellow Chartered Accountant)",
-    membershipNo: "XXXXXX", // Placeholder
-    frn: "XXXXXXX", // Placeholder
-    experience: "18+",
-    experienceDetail: "18+ years in practice",
+    role: "Tax & Financial Documentation Consultant",
+    qualification: "B.Com",
+    experience: "20+",
+    experienceDetail: "20+ years of hands-on experience",
     bio: [
-      "CA N.S. Negi is a Fellow Chartered Accountant registered with the Institute of Chartered Accountants of India (ICAI), practising in Haldwani, Uttarakhand. His work covers accounting, taxation, and compliance advisory for individuals, traders, and small businesses across the Nainital district.",
-      "The practice focuses on income tax return filing, GST registration and compliance, accounts bookkeeping, and business and firm registration services. CA Negi personally oversees all client engagements, ensuring accuracy and regulatory compliance at every stage.",
-      "Based in Haldwani, the practice serves clients across the Kumaon region — including Nainital, Haldwani, Rudrapur, and surrounding areas — providing accessible and reliable financial guidance grounded in familiarity with the local business environment."
+      "N. S. Negi is a tax and financial documentation consultant based in Haldwani, with over 20 years of hands-on experience in taxation, accounting compliance, and bank loan project report preparation.",
+      "Having worked closely with individuals, traders, and small businesses across Uttarakhand, he brings deep practical knowledge of GST filings, income tax returns, and the documentation banks require for loan sanctioning.",
+      "His practice is built through two decades of direct, on-ground experience rather than classroom theory alone, providing reliable, accurate, and accessible guidance grounded in deep familiarity with the local business environment."
     ],
     avatarInitials: "NSN"
   },

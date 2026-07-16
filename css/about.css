@@ -628,22 +628,44 @@
   
   .credentials-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px 0;
+    gap: 0;
+    position: relative;
   }
 
-  /* Adjust borders for 2x2 grid layout */
-  .credential-item:nth-child(even) {
-    border-right: none;
-  }
-  
-  .credential-item:nth-child(odd) {
-    border-right: 1px dashed var(--color-border);
+  /* Remove individual cell borders on tablet/mobile */
+  .credential-item {
+    border: none !important;
   }
 
-  /* Add horizontal separator for first row on tablet/mobile */
+  /* Draw a continuous vertical dashed line centered horizontally */
+  .credentials-grid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    border-left: 1px dashed var(--color-border);
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  /* Draw a continuous horizontal dashed line centered vertically */
+  .credentials-grid::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 0;
+    border-top: 1px dashed var(--color-border);
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  /* Add padding to simulate row gaps cleanly */
   .credential-item:nth-child(1),
   .credential-item:nth-child(2) {
-    border-bottom: 1px dashed var(--color-border);
     padding-bottom: 24px;
   }
 

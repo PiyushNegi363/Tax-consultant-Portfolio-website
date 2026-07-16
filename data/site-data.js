@@ -7,9 +7,9 @@ const siteData = {
     experience: "20+",
     experienceDetail: "20+ years of hands-on experience",
     bio: [
-      "N. S. Negi is a tax and financial documentation consultant based in Haldwani, with over 20 years of hands-on experience in taxation, accounting compliance, and bank loan project report preparation.",
-      "Having worked closely with individuals, traders, and small businesses across Uttarakhand, he brings deep practical knowledge of GST filings, income tax returns, and the documentation banks require for loan sanctioning.",
-      "His practice is built through two decades of direct, on-ground experience rather than classroom theory alone, providing reliable, accurate, and accessible guidance grounded in deep familiarity with the local business environment."
+      "N. S. Negi is a tax and financial documentation consultant based in Haldwani, with over 20 years of hands-on experience in taxation, accounting compliance, and bank loan project report preparation. Operating directly across Haldwani, Nainital, and the wider Uttarakhand region, he specializes in simplifying regulatory filings and paperwork for local traders, salaried professionals, and growing business firms.",
+      "Having worked closely with diverse clients for two decades, he brings deep practical knowledge of GST registrations, monthly returns, and Income Tax Return (ITR) filings. He is particularly expert in preparing projected balance sheets, CMA data, and detailed project documentation that banks require to evaluate and sanction business and MSME loans.",
+      "His practice is built through two decades of direct, on-ground experience rather than classroom theory alone, providing reliable, accurate, and accessible guidance. By working closely and directly with each client, he ensures personalized attention and compliance integrity, making sure every filing is accurate, transparent, and aligned with current guidelines."
     ],
     avatarInitials: "NSN"
   },

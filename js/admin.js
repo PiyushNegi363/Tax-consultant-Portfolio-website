@@ -36,10 +36,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const drawerCallBtn = document.getElementById("drawerCallBtn");
   const drawerWaBtn = document.getElementById("drawerWaBtn");
   const drawerMailBtn = document.getElementById("drawerMailBtn");
+  const drawerDeleteBtn = document.getElementById("drawerDeleteBtn");
+
+  const deleteAllBtn = document.getElementById("deleteAllBtn");
+
+  const confirmModal = document.getElementById("confirmModal");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalMessage = document.getElementById("modalMessage");
+  const modalCancelBtn = document.getElementById("modalCancelBtn");
+  const modalConfirmBtn = document.getElementById("modalConfirmBtn");
 
   let enquiriesData = [];
   let filteredData = [];
   let readLeads = JSON.parse(localStorage.getItem("admin_read_leads") || "[]");
+  let activeDrawerItem = null;
+  let confirmCallback = null;
 
   const exportCsvBtn = document.getElementById("exportCsvBtn");
 
@@ -51,6 +62,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (exportCsvBtn) {
     exportCsvBtn.addEventListener("click", exportToCsv);
+  }
+
+  if (deleteAllBtn) {
+    deleteAllBtn.addEventListener("click", promptDeleteAll);
+  }
+
+  if (drawerDeleteBtn) {
+    drawerDeleteBtn.addEventListener("click", () => {
+      if (activeDrawerItem) {
+        promptDeleteSingle(activeDrawerItem);
+      }
+    });
+  }
+
+  if (modalCancelBtn) {
+    modalCancelBtn.addEventListener("click", closeConfirmModal);
+  }
+
+  if (modalConfirmBtn) {
+    modalConfirmBtn.addEventListener("click", () => {
+      if (typeof confirmCallback === "function") {
+        confirmCallback();
+      }
+      closeConfirmModal();
+    });
   }
 
   // 2. Login Form Handler
@@ -286,11 +322,27 @@ document.addEventListener("DOMContentLoaded", () => {
         <td class="hide-small-mobile">${escapeHtml(item.from_phone)}</td>
         <td><span class="table-tag-badge">${escapeHtml(item.service_required || item.service)}</span></td>
         <td class="hide-mobile">${escapeHtml(item.from_email || "-")}</td>
+        <td class="text-right">
+          <button class="row-delete-btn" title="Delete Record" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </button>
+        </td>
       `;
 
       tr.addEventListener("click", () => {
         openDrawer(item, dateString);
       });
+
+      const rowDeleteBtn = tr.querySelector(".row-delete-btn");
+      if (rowDeleteBtn) {
+        rowDeleteBtn.addEventListener("click", (e) => {
+          e.stopPropagation(); // Prevent drawer from opening
+          promptDeleteSingle(item);
+        });
+      }
 
       tableBody.appendChild(tr);
     });
@@ -337,6 +389,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 9. Side Drawer Operations
   function openDrawer(item, formattedDate) {
+    activeDrawerItem = item;
     drawerDate.textContent = formattedDate;
     drawerName.textContent = item.from_name;
     drawerPhone.textContent = item.from_phone;
@@ -382,6 +435,98 @@ document.addEventListener("DOMContentLoaded", () => {
 
     detailDrawer.classList.add("open");
     drawerOverlay.classList.add("active");
+  }
+
+  // 10. Deletion System & Confirmation Modal Helpers
+  function openConfirmModal(title, message, callback) {
+    if (!confirmModal) return;
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+    confirmCallback = callback;
+    confirmModal.classList.remove("hidden");
+  }
+
+  function closeConfirmModal() {
+    if (!confirmModal) return;
+    confirmModal.classList.add("hidden");
+    confirmCallback = null;
+  }
+
+  function promptDeleteSingle(item) {
+    const clientName = item.from_name ? `for "${item.from_name}"` : "this record";
+    openConfirmModal(
+      "Delete Enquiry",
+      `Are you sure you want to delete the enquiry ${clientName}? This action cannot be undone.`,
+      () => executeDeleteSingle(item)
+    );
+  }
+
+  function promptDeleteAll() {
+    if (enquiriesData.length === 0) {
+      showToast("There are no enquiries to delete.", "error");
+      return;
+    }
+
+    openConfirmModal(
+      "Delete All Enquiries",
+      `Are you sure you want to delete ALL ${enquiriesData.length} enquiries? This permanent deletion cannot be undone.`,
+      () => executeDeleteAll()
+    );
+  }
+
+  function executeDeleteSingle(item) {
+    // 1. Remote backend delete dispatch
+    sendDeleteBackend({ action: "delete", timestamp: item.timestamp });
+
+    // 2. Local state update
+    enquiriesData = enquiriesData.filter(d => d.timestamp !== item.timestamp);
+    filteredData = filteredData.filter(d => d.timestamp !== item.timestamp);
+
+    // 3. Close drawer if active item is deleted
+    if (activeDrawerItem && activeDrawerItem.timestamp === item.timestamp) {
+      closeDrawer();
+    }
+
+    // 4. Update UI & Metrics
+    calculateMetrics();
+    renderTable();
+    showToast(`Enquiry for ${item.from_name || "client"} deleted.`, "success");
+  }
+
+  function executeDeleteAll() {
+    // 1. Remote backend clear dispatch
+    sendDeleteBackend({ action: "deleteAll" });
+
+    // 2. Local state update
+    enquiriesData = [];
+    filteredData = [];
+
+    // 3. Close drawer if open
+    closeDrawer();
+
+    // 4. Update UI & Metrics
+    calculateMetrics();
+    renderTable();
+    showToast("All enquiries deleted successfully.", "success");
+  }
+
+  function sendDeleteBackend(payload) {
+    const sheetUrl = (typeof siteData !== "undefined") ? siteData.googleSheetsUrl : "";
+    const password = sessionStorage.getItem("admin_session_token") || "";
+
+    if (sheetUrl && sheetUrl !== "YOUR_GOOGLE_SHEETS_WEB_APP_URL" && sheetUrl !== "") {
+      fetch(sheetUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...payload,
+          p: password
+        })
+      }).catch(err => {
+        console.error("Backend deletion dispatch error:", err);
+      });
+    }
   }
 
   function setupClipboardCopy(element, text, successMsg) {

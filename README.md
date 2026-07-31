@@ -103,6 +103,31 @@ To securely capture and fetch enquiry data, deploy a Google Apps Script linked t
           sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0]; // Fallback to first tab
         }
         var data = JSON.parse(e.postData.contents || "{}");
+
+        // Action: Delete Single Record
+        if (data.action === "delete" && data.p === ADMIN_PASSWORD) {
+          var rows = sheet.getDataRange().getValues();
+          for (var i = 1; i < rows.length; i++) {
+            if (String(rows[i][0]) === String(data.timestamp)) {
+              sheet.deleteRow(i + 1);
+              break;
+            }
+          }
+          return ContentService.createTextOutput(JSON.stringify({ status: "success" }))
+            .setMimeType(ContentService.MimeType.JSON);
+        }
+
+        // Action: Delete All Records
+        if (data.action === "deleteAll" && data.p === ADMIN_PASSWORD) {
+          var lastRow = sheet.getLastRow();
+          if (lastRow > 1) {
+            sheet.deleteRows(2, lastRow - 1);
+          }
+          return ContentService.createTextOutput(JSON.stringify({ status: "success" }))
+            .setMimeType(ContentService.MimeType.JSON);
+        }
+
+        // Default: Log New Client Enquiry
         sheet.appendRow([
           new Date().toISOString(),
           data.name || data.from_name || "",
